@@ -4,6 +4,7 @@ import { Gender } from './gender';
 import { Image } from './image';
 import { Order } from './order';
 import { Restaurant } from './restaurant';
+import { SocialLink } from './social-link';
 
 export class User {
     private id: number;
@@ -12,16 +13,38 @@ export class User {
     private email: string;
     private username: string;
     private password: string;
-    private roles: Array<any>;
+    private roles: any[];
     private _image: Image;
     private gender: Gender;
-    private addresses: Array<Address>;
+    private addresses: Address[];
     private restaurant: Restaurant;
     private cart: Cart;
-    private orders: Array<Order>;
+    private orders: Order[];
     private createdAt: Date;
+    private social_links: SocialLink[];
+
+
+    constructor(user: any) {
+        this.firstName = user.first_name;
+        this.lastName = user.last_name;
+        this.email = user.email;
+        this.username = user.username;
+        this.roles = user.roles;
+        this._image = user.image;
+        this.gender = user.gender;
+        this.addresses = user.addresses;
+        this.restaurant = user.restaurant;
+        this.cart = user.cart;
+        this.orders = user.orders;
+        this.createdAt = user.created_at;
+        this.social_links = user.social_links;
+    }
 
     
+
+    public checkRole(role: string) {
+        return this.roles.includes(role);
+    }
 
     /**
      * Getter $id

@@ -23,14 +23,7 @@ export class AuthService {
 
   private helper: JwtHelperService = new JwtHelperService();
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getToken()}`
-    })
-  };
-
-  user: User = new User();
+  user: User = null;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -43,8 +36,27 @@ export class AuthService {
     return this.http.post(this.loginEndpoint, JSON.stringify(payload), {headers: headers});
   }
 
-  getUser() {
-    return this.http.get(this.accountEndpoint, this.httpOptions);
+
+  logout() {
+    localStorage.removeItem(this.storageKey);
+    localStorage.removeItem(this.refreshKey);
+    localStorage.removeItem(this.rememberKey);
+    localStorage.removeItem(this.userKey);
+    this.router.navigate(['/']);
+  }
+
+  loadUser() {
+    this.http.get(this.accountEndpoint, { headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken()}) })
+                    .subscribe(
+                      data => {
+                        let res: any = data;
+                        this.user = new User(res.user);
+                        this.setUser(this.user);
+                      },
+                      err => {
+                        console.log(err);
+                      }
+                    );
   }
 
   setData(data, rememberme) {
@@ -54,6 +66,23 @@ export class AuthService {
       this.setRefreshToken(data.refresh_token);
       localStorage.setItem(this.rememberKey, '1');
     }
+  }
+
+  setUser(user: User) {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
+  getUser() {
+    if (localStorage.getItem(this.userKey) === null) {
+      return null;
+    }
+    
+    if (this.user === undefined) {
+      this.user = new User(JSON.parse(localStorage.getItem(this.userKey)));
+      console.log(this.user);
+    }
+
+    return JSON.parse(localStorage.getItem(this.userKey));
   }
 
   isLoggedIn() {

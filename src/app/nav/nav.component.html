@@ -5,10 +5,11 @@
         <a [routerLink]="['/']" class="brand-logo left bold">Delivereo</a>
         <a href="#" data-target="sidebar-nav" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li *ngIf="!authStatus"><a href="/partner">Devenez partenaire</a></li>
-          <li *ngIf="!authStatus"><a [routerLink]="['login']">Se connecter</a></li>
-          <li *ngIf="!authStatus"><a href="/register">S'inscrire</a></li>
-          <li *ngIf="authStatus"><a href="#">Mon compte</a></li>
+          <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['partner']">Devenez partenaire</a></li>
+          <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['login']">Se connecter</a></li>
+          <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['register']">S'inscrire</a></li>
+          <li *ngIf="auth.isLoggedIn()"><a [routerLink]="['profile']">Mon compte</a></li>
+          <li *ngIf="auth.isLoggedIn()"><a (click)="logout()">Déconnexion</a></li>
         </ul>
       </div>
     </div>
@@ -16,9 +17,23 @@
 </header>
 
 
-<ul id="sidebar-nav" class="sidenav right-aligned">
-  <li><a class="subheader">Membre</a></li>
-  <li><a [routerLink]="['/partner']" class="waves-effect"><i class="material-icons">restaurant</i>Devenez partenaire</a></li>
-  <li><a class="waves-effect" [routerLink]="['/login']" ><i class="material-icons">account_circle</i>Connexion</a></li>
-  <li><a class="waves-effect" [routerLink]="['/register']" ><i class="material-icons">format_align_left</i>Inscription</a></li>
+<ul id="sidebar-nav" class="sidenav">
+  <li>
+  <div class="user-view">
+      <div class="background">
+          <div class="background-overlay"></div>
+          <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540311324/businessman.jpg">
+      </div>
+                          <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1543858317/ibragim_830c25a85f02a29aa4c1584d10a7d6bd.jpg" alt="Photo de Ibragim" class="circle">
+                      <a href="/profile/"><span class="white-text name">Ibragim Abubakarov</span></a>
+      <a href="mailto:ibrahim.chechen64@gmail.com"><span class="white-text email">ibrahim.chechen64@gmail.com</span></a>
+  </div>
+</li>
+<li><a class="subheader">Membre</a></li>
+
+  <li><a href="/owner/dashboard" class="waves-effect"><i class="material-icons">dashboard</i>Tableau de bord</a></li>
+
+
+  <li><a href="/profile/" class="waves-effect"><i class="material-icons">account_circle</i>Mon compte</a></li>
+<li><a href="/logout" class="waves-effect"><i class="material-icons">power_settings_new</i>Déconnexion</a></li>
 </ul>

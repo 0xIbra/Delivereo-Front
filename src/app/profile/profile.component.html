@@ -1,3 +1,196 @@
-<p>
-  profile works!
-</p>
+<div>
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col s12 m5 l4">
+                    <div class="card" id="profileimage">
+                        <div class="card-content">
+                            <div class="image-wrapper">
+                                <img *ngIf="auth.user !== null && auth.user._image !== undefined && auth.user._image !== null"
+                                    src="{{ auth.user._image.url }}" alt="Photo de {{auth.user.firstName}} {{auth.user.lastName}}">
+                                <img *ngIf="auth.user._image === undefined && auth.user.gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png"
+                                    alt="Default photo">
+                                <img *ngIf="auth.user._image === undefined && auth.user.gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
+                                    alt="Default photo">
+                            </div>
+                            <div class="profile-cred">
+                                <span class="profile-title">{{auth.user.firstName}} {{auth.user.lastName}}</span>
+                                <div class="location flex align-center justify-center">
+                                    <span style="display: block;" class="ville" *ngIf="auth.user.checkRole('ROLE_OWNER')">Partenaire</span>
+                                    <span style="display: block;" class="ville" *ngIf="auth.user.checkRole('ROLE_CONSUMER')">Consommateur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" id="profileinfo">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <span class="subheader">Informations</span>
+                                    <div class="info">
+                                        <span class="material-icons">account_circle</span>
+                                        <span class="value">{{auth.user.username}}</span>
+                                    </div>
+                                    <div class="info">
+                                        <span class="material-icons">mail</span>
+                                        <span><a href="mailto:{{auth.user.email}}">{{auth.user.email}}</a></span>
+                                    </div>
+                                    <div class="info">
+                                        <span class="material-icons">wc</span>
+                                        <span class="value">{{auth.user.gender.name}}</span>
+                                    </div>
+                                    <span class="subheader">Reseaux sociaux</span>
+                                    <div class="social-icons flex align-center">
+
+                                        <a href="#socialmodal" class="icon-wrapper modal-trigger">
+                                            <span class="icon fa fa-plus-square-o"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 ">
+                                    <a href="/profile/edit" class="modernize flex justify-center">
+                                        <span class="material-icons">account_circle</span>
+                                        <span>Modifier</span>
+                                    </a>
+                                </div>
+                                <div class="col s12 ">
+                                    <a href="/profile/change-password" class="modernize flex justify-center">
+                                        <span class="material-icons">lock</span>
+                                        <span>Mot de passe</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m7 l8">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="flex align-center">
+                                        <div class="row-header">Commandes</div>
+                                    </div>
+                                </div>
+                                <h6 style="margin: 0 !important;text-align: center;color: #999999;">Aucune commande</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="flex align-center">
+                                        <div class="row-header">Adresses</div>
+                                        <a href="/user/address/add" class="modal-trigger flex align-center add-btn">
+                                            <span class="material-icons">add</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h6 style="margin: 0 !important;text-align: center;color: #999999;">Aucune adresse</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="auth.user.checkRole('ROLE_OWNER')" class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="flex align-center">
+                                        <div class="row-header">Restaurant</div>
+                                    </div>
+                                </div>
+                                <div class="col s12 m6 l4">
+                                    <div class="card basic modernize">
+                                        <a href="/restaurant/1">
+                                            <div class="card-content">
+                                                <span class="card-title">Kebab Istanbul</span>
+                                                <span class="address">66 Rue Henri Faisans</span>
+                                                <span class="address">Pau, 64000</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal" id="addressmodal" tabindex="0">
+            <div class="modal-content">
+                <h4 class="modal-title">Titre</h4>
+                <br>
+                <div class="divider"></div>
+                <br>
+                <span id="address" class="address">Adresse</span>
+                <span class="address" id="line2">Complementaire</span>
+                <span class="address" id="city">Ville</span>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="waves-effect btn-flat red" id="deletebtn">Supprimer</a>
+                <a href="#" class="waves-effect btn-flat" id="editbtn">Modifier</a>
+            </div>
+        </div>
+
+        <div class="modal" id="socialmodal" tabindex="0">
+            <div class="modal-content">
+                <h4 class="modal-title">Ajouter un reseau</h4>
+                <br>
+                <div class="divider"></div>
+                <form method="post" action="/user/sociallink/add">
+                    <input type="hidden" name="_token" value="so2ZMXcrZfNvMbUa03lJ72U6nvlUhnJ0hZFS4ZIC6uk">
+                    <div class="input-field modernize">
+                        <div class="select-wrapper"><input class="select-dropdown dropdown-trigger" type="text"
+                                readonly="true" data-target="select-options-2a9fcd8f-1321-1ca3-655f-1a6e07188781">
+                            <ul id="select-options-2a9fcd8f-1321-1ca3-655f-1a6e07188781" class="dropdown-content select-dropdown"
+                                tabindex="0">
+                                <li id="select-options-2a9fcd8f-1321-1ca3-655f-1a6e071887810" tabindex="0" class="selected"><span>Facebook</span></li>
+                                <li id="select-options-2a9fcd8f-1321-1ca3-655f-1a6e071887811" tabindex="0"><span>Instagram</span></li>
+                                <li id="select-options-2a9fcd8f-1321-1ca3-655f-1a6e071887812" tabindex="0"><span>LinkedIn</span></li>
+                                <li id="select-options-2a9fcd8f-1321-1ca3-655f-1a6e071887813" tabindex="0"><span>Twitter</span></li>
+                            </ul><svg class="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 10l5 5 5-5z"></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg><select name="socialtype" tabindex="-1">
+                                <option value="1">Facebook</option>
+                                <option value="2">Instagram</option>
+                                <option value="3">LinkedIn</option>
+                                <option value="4">Twitter</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" name="socialurl" placeholder="Url">
+                    </div>
+                    <div class="input-field flex justify-center">
+                        <input type="submit" class="modernize btn" value="Ajouter">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="restaurantmodal" tabindex="0">
+            <div class="modal-content">
+                <h4 class="modal-title">Titre</h4>
+                <br>
+                <div class="divider"></div>
+                <br>
+                <span id="address" class="address">Adresse</span>
+                <span class="address" id="line2">Complementaire</span>
+                <span class="address" id="city">Ville</span>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="waves-effect btn-flat red" id="deletebtn">Supprimer</a>
+                <a href="#" class="waves-effect btn-flat" id="editbtn">Modifier</a>
+            </div>
+        </div>
+
+    </div>
+</div>

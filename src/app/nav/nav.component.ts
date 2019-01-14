@@ -10,7 +10,6 @@ import { AuthService } from '../services/auth.service';
 export class NavComponent implements OnInit {
 
   private nav:any;
-  authStatus: boolean = false;
 
   constructor(private router: Router, private auth: AuthService) { }
 
@@ -19,7 +18,6 @@ export class NavComponent implements OnInit {
       this.nav = document.getElementById('nav');
       this.nav.classList.add('top');
     }
-    this.checkIsLoggedIn();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -33,11 +31,12 @@ export class NavComponent implements OnInit {
     }
   }
 
-
-  checkIsLoggedIn() {
-    this.authStatus = this.auth.isLoggedIn();
+  logout() {
+    this.auth.logout();
   }
 
-
+  checkUserRole(role: string) {
+    this.auth.user.checkRole(role);
+  }
 
 }

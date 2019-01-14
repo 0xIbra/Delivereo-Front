@@ -10,7 +10,7 @@ import { Gender } from '../models/gender';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  user: User = new User();
+  user: User;
 
   plainPasswordFirst: string;
   plainPasswordSecond: string;
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       this.user.$firstName = 'Ibrahim';
       this.user.$lastName = 'Abubakarov';
       console.log(this.user);
-      //M.toast({ html: 'Valide !' });
+      M.toast({ html: 'Valide !' });
     }
   }
 

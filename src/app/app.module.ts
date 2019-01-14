@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { ApiService } from './services/api.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { LoginGuard } from './guards/login.guard';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule
     
   ],
-  providers: [AuthService, ApiService, AuthGuard],
+  providers: [AuthService, ApiService, AuthGuard, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

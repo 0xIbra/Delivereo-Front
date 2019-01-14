@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     
@@ -34,13 +34,16 @@ export class LoginComponent implements OnInit {
               .subscribe(
                 data => {
                   this.auth.setData(data, payload.rememberme);
+                  if (this.auth.isLoggedIn()) {
+                    this.auth.loadUser();
+                    this.router.navigate(['/']);
+                  }
                 }, 
                 err => {
-                  console.log(err);
+                  //console.log(err);
                   M.toast({ html: err.error.message });
                 }
               );
-    
   }
 
 }
