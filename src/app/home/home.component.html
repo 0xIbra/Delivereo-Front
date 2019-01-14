@@ -1,0 +1,206 @@
+<section class="showcase bg showcase-bg">
+  <div class="overlay"></div>
+  <div class="container-fluid">
+    <div class="showcase-content" style="position: relative;">
+      <h2 class="slogan">Je clique, je commande</h2>
+      <h4 class="sub-slogan">Commandez vos plats préférés chez les restaurants dans votre ville</h4>
+      
+      <form (ngSubmit)="onSubmit()" style="position: relative;">
+        <div class="input-field flex search-container">
+          <input type="text" id="home_search_search" name="home_search[search]" required="required" class="modernize search-field"
+            placeholder="Entrer votre code postal" maxlength="5">
+          <button type="submit" id="home_search_Trouver" name="home_search[Trouver]" class="modernize">Trouver</button>
+        </div>
+        <div class="searchResults">
+          <ul class="results">
+          </ul>
+        </div>
+        <input type="hidden" id="home_search__token" name="home_search[_token]" value="QU8F1-zdKPrR94F1w8JyzN1Lu4KVqfPPebbVwKqbMf4">
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<section class="showcase">
+  <div class="container-fluid">
+    <div class="showcase-heading">
+      <h1 class="heading">Comment ca marche ?</h1>
+    </div>
+    <div class="showcase-content no-padding">
+      <div class="row m-auto">
+        <div class="col s12 l8 offset-l2">
+          <ul class="tabs">
+            <li class="tab col s6 l6"><a href="#con" class="active">Consommateurs</a></li>
+            <li class="tab col s6 l6"><a href="#restaurants">Restaurants</a></li>
+          </ul>
+        </div>
+        <div class="col s12 tab-window active" id="con">
+          <h3 class="heading">Consommateur</h3>
+          <div class="row">
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">account_circle</i>
+                  </div>
+                  <p>Créez un compte pour pouvoir commander</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">home</i>
+                  </div>
+                  <p>Trouver les restaurants proches de chez vous</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">add_shopping_cart</i>
+                  </div>
+                  <p>Choisissez votre mode de paiement et placez votre commande</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">access_time</i>
+                  </div>
+                  <p>Recevez votre commande</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <a href="/partner" class="modernize bold waves-effect">Procédez à l'ouverture</a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 tab-window" id="restaurants" style="display: none;">
+          <h3 class="heading">Restaurant</h3>
+          <div class="row">
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">account_circle</i>
+                  </div>
+                  <p>Créez un compte pour pouvoir ouvrir votre restaurant</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">add_to_queue</i>
+                  </div>
+                  <p>Ouvrez votre restaurant en fournissant les informations nécessaires</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">apps</i>
+                  </div>
+                  <p>Ajoutez vos plats</p>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6 l3">
+              <div class="card custom">
+                <div class="card-content">
+                  <div class="card-image">
+                    <i class="material-icons large">add_alert</i>
+                  </div>
+                  <p>Quand une commande est effectuée, c'est à vous de la faire livrer au client</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <a href="/partner" class="modernize bold waves-effect">Procédez à l'ouverture</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="showcase bg-white">
+  <div class="container-fluid">
+    <div class="showcase-heading p-20-0">
+      <h1 class="heading">Categories</h1>
+    </div>
+    <div class="showcase-content no-padding">
+      <div class="row">
+
+          <div *ngFor="let cat of categories" class="col s12 m6 l3">
+              <div class="modern-card">
+                <a href="void:javascript;" class="waves-effect linkify">
+                  <div class="modern-card-image">
+                    <div class="modern-overlay"></div>
+                    <img src="{{ cat.image.url }}" alt="{{ cat.image.title }}">
+                  </div>
+                  <div class="modern-card-body">
+                    <span>{{ cat.name }}</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <a href="void:javascript;" class="modernize bold waves-effect">Voir tout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="showcase" id="mobileversion">
+  <div class="container-fluid">
+    <div class="showcase-heading">
+      <h1 class="heading">Disponible sur Android</h1>
+    </div>
+    <div class="showcase-content no-padding">
+      <div class="row">
+        <div class="col s12 m6 l4 offset-l1">
+          <div class="image-card">
+            <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1537554628/Delivereo/Assets/Android.png" alt="Android version">
+          </div>
+        </div>
+        <div class="col s12 m6 l7" id="content">
+          <h4 class="heading">Essayez la version Android</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci cum delectus distinctio, dolore
+            doloremque doloribus dolorum est illo ipsum libero magnam nam nihil nisi numquam quo quos repellat sed,
+            voluptas.</p>
+          <a href="void:javascript;">
+            <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1537554628/Delivereo/Assets/google-play-badge.svg"
+              alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-footer></app-footer>

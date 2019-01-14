@@ -1,3 +1,24 @@
-<p>
-  nav works!
-</p>
+<header class="main">
+  <nav id="nav">
+    <div class="container-fluid">
+      <div class="nav-wrapper">
+        <a [routerLink]="['/']" class="brand-logo left bold">Delivereo</a>
+        <a href="#" data-target="sidebar-nav" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li *ngIf="!authStatus"><a href="/partner">Devenez partenaire</a></li>
+          <li *ngIf="!authStatus"><a [routerLink]="['login']">Se connecter</a></li>
+          <li *ngIf="!authStatus"><a href="/register">S'inscrire</a></li>
+          <li *ngIf="authStatus"><a href="#">Mon compte</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<ul id="sidebar-nav" class="sidenav right-aligned">
+  <li><a class="subheader">Membre</a></li>
+  <li><a [routerLink]="['/partner']" class="waves-effect"><i class="material-icons">restaurant</i>Devenez partenaire</a></li>
+  <li><a class="waves-effect" [routerLink]="['/login']" ><i class="material-icons">account_circle</i>Connexion</a></li>
+  <li><a class="waves-effect" [routerLink]="['/register']" ><i class="material-icons">format_align_left</i>Inscription</a></li>
+</ul>
