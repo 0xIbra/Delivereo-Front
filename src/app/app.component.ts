@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     if (this.auth.isLoggedIn()) {
       if (this.auth.user === null) {
-        this.auth.getUser();
+        this.auth.loadUser();
       }
     }
   }

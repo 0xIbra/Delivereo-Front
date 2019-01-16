@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
 
   private nav:any;
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, public auth: AuthService) { }
 
   ngOnInit() {
     if (this.router.url === '') {

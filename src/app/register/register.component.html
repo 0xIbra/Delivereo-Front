@@ -9,23 +9,23 @@
               <form (ngSubmit)="onSubmit()">
                 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.firstName" name="firstName" required class="modernize" placeholder="Prénom">
+                  <input type="text" [(ngModel)]="user.$firstName" name="firstName" required class="modernize" placeholder="Prénom">
                 </div>
 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.lastName" name="lastName" required class="modernize" placeholder="Nom">
+                  <input type="text" [(ngModel)]="user.$lastName" name="lastName" required class="modernize" placeholder="Nom">
                 </div>
 
                 <div class="input-field">
-                  <input type="email" [(ngModel)]="user.email" name="email" required class="modernize" placeholder="Adresse e-mail">
+                  <input type="email" [(ngModel)]="user.$email" name="email" required class="modernize" placeholder="Adresse e-mail">
                 </div>
 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.username" name="username" required class="modernize" placeholder="Nom d'utilisateur">
+                  <input type="text" [(ngModel)]="user.$username" name="username" required class="modernize" placeholder="Nom d'utilisateur">
                 </div>
 
                 <div class="input-field modernize">
-                  <select [(ngModel)]="user.gender" name="gender">
+                  <select [(ngModel)]="user.$gender" name="gender">
                     <option *ngFor="let gender of genders; let first = first" [selected]="first"  [ngValue]="gender">{{ gender.name }}</option>
                   </select>
                 </div>

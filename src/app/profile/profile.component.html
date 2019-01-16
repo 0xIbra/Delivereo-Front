@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="auth.user !== null">
     <div class="page-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -6,18 +6,20 @@
                     <div class="card" id="profileimage">
                         <div class="card-content">
                             <div class="image-wrapper">
-                                <img *ngIf="auth.user !== null && auth.user._image !== undefined && auth.user._image !== null"
-                                    src="{{ auth.user._image.url }}" alt="Photo de {{auth.user.firstName}} {{auth.user.lastName}}">
-                                <img *ngIf="auth.user._image === undefined && auth.user.gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png"
+                                <img *ngIf="auth.user !== null && auth.user.$image !== undefined && auth.user.$image !== null"
+                                    src="{{ auth.user.$image.url }}" alt="Photo de {{auth.user.$first_name}} {{auth.user.$last_name}}">
+                                
+                                <img *ngIf="auth.user !== null &&auth.user.$image === undefined && auth.user.$gender.$id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png"
                                     alt="Default photo">
-                                <img *ngIf="auth.user._image === undefined && auth.user.gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
+
+                                <img *ngIf="auth.user !== null && auth.user.$image === undefined && auth.user.$gender.$id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
                                     alt="Default photo">
                             </div>
                             <div class="profile-cred">
-                                <span class="profile-title">{{auth.user.firstName}} {{auth.user.lastName}}</span>
+                                <span class="profile-title">{{auth.user.$first_name}} {{auth.user.$last_name}}</span>
                                 <div class="location flex align-center justify-center">
-                                    <span style="display: block;" class="ville" *ngIf="auth.user.checkRole('ROLE_OWNER')">Partenaire</span>
-                                    <span style="display: block;" class="ville" *ngIf="auth.user.checkRole('ROLE_CONSUMER')">Consommateur</span>
+                                    <span style="display: block;" class="ville" *ngIf="auth.user !== null && auth.user.checkRole('ROLE_OWNER')">Partenaire</span>
+                                    <span style="display: block;" class="ville" *ngIf="auth.user !== null && auth.user.checkRole('ROLE_CONSUMER')">Consommateur</span>
                                 </div>
                             </div>
                         </div>
@@ -29,15 +31,15 @@
                                     <span class="subheader">Informations</span>
                                     <div class="info">
                                         <span class="material-icons">account_circle</span>
-                                        <span class="value">{{auth.user.username}}</span>
+                                        <span class="value">{{auth.user.$username}}</span>
                                     </div>
                                     <div class="info">
                                         <span class="material-icons">mail</span>
-                                        <span><a href="mailto:{{auth.user.email}}">{{auth.user.email}}</a></span>
+                                        <span><a href="mailto:{{auth.user.$email}}">{{auth.user.$email}}</a></span>
                                     </div>
                                     <div class="info">
                                         <span class="material-icons">wc</span>
-                                        <span class="value">{{auth.user.gender.name}}</span>
+                                        <span class="value">{{auth.user.$gender.$name}}</span>
                                     </div>
                                     <span class="subheader">Reseaux sociaux</span>
                                     <div class="social-icons flex align-center">
@@ -95,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="auth.user.checkRole('ROLE_OWNER')" class="card">
+                    <div *ngIf="auth.user !== null && auth.user.checkRole('ROLE_OWNER')" class="card">
                         <div class="card-content">
                             <div class="row">
                                 <div class="col s12">
@@ -103,13 +105,13 @@
                                         <div class="row-header">Restaurant</div>
                                     </div>
                                 </div>
-                                <div class="col s12 m6 l4">
+                                <div *ngIf="auth.user.restaurant !== undefined" class="col s12 m6 l4">
                                     <div class="card basic modernize">
                                         <a href="/restaurant/1">
                                             <div class="card-content">
-                                                <span class="card-title">Kebab Istanbul</span>
-                                                <span class="address">66 Rue Henri Faisans</span>
-                                                <span class="address">Pau, 64000</span>
+                                                <span class="card-title">{{auth.user.restaurant.name}}</span>
+                                                <span class="address">{{auth.user.restaurant.address.line1}}</span>
+                                                <span class="address">{{auth.user.restaurant.address.city.name}}</span>
                                             </div>
                                         </a>
                                     </div>

@@ -8,35 +8,35 @@ import { SocialLink } from './social-link';
 
 export class User {
     private id: number;
-    private firstName: string;
-    private lastName: string;
+    private first_name: string;
+    private last_name: string;
     private email: string;
     private username: string;
     private password: string;
     private roles: any[];
-    private _image: Image;
+    private image: Image;
     private gender: Gender;
     private addresses: Address[];
     private restaurant: Restaurant;
     private cart: Cart;
     private orders: Order[];
-    private createdAt: Date;
+    private created_at: Date;
     private social_links: SocialLink[];
 
 
     constructor(user: any) {
-        this.firstName = user.first_name;
-        this.lastName = user.last_name;
+        this.first_name = user.first_name;
+        this.last_name = user.last_name;
         this.email = user.email;
         this.username = user.username;
         this.roles = user.roles;
-        this._image = user.image;
+        this.image = user.image;
         this.gender = user.gender;
         this.addresses = user.addresses;
         this.restaurant = user.restaurant;
         this.cart = user.cart;
         this.orders = user.orders;
-        this.createdAt = user.created_at;
+        this.created_at = user.created_at;
         this.social_links = user.social_links;
     }
 
@@ -45,6 +45,9 @@ export class User {
     public checkRole(role: string) {
         return this.roles.includes(role);
     }
+
+    
+
 
     /**
      * Getter $id
@@ -55,19 +58,19 @@ export class User {
 	}
 
     /**
-     * Getter $firstName
+     * Getter $first_name
      * @return {string}
      */
-	public get $firstName(): string {
-		return this.firstName;
+	public get $first_name(): string {
+		return this.first_name;
 	}
 
     /**
-     * Getter $lastName
+     * Getter $last_name
      * @return {string}
      */
-	public get $lastName(): string {
-		return this.lastName;
+	public get $last_name(): string {
+		return this.last_name;
 	}
 
     /**
@@ -96,18 +99,18 @@ export class User {
 
     /**
      * Getter $roles
-     * @return {Array<any>}
+     * @return {any[]}
      */
-	public get $roles(): Array<any> {
+	public get $roles(): any[] {
 		return this.roles;
 	}
 
     /**
-     * Getter image
+     * Getter $image
      * @return {Image}
      */
-	public get image(): Image {
-		return this._image;
+	public get $image(): Image {
+		return this.image;
 	}
 
     /**
@@ -120,9 +123,9 @@ export class User {
 
     /**
      * Getter $addresses
-     * @return {Array<Address>}
+     * @return {Address[]}
      */
-	public get $addresses(): Array<Address> {
+	public get $addresses(): Address[] {
 		return this.addresses;
 	}
 
@@ -144,18 +147,26 @@ export class User {
 
     /**
      * Getter $orders
-     * @return {Array<Order>}
+     * @return {Order[]}
      */
-	public get $orders(): Array<Order> {
+	public get $orders(): Order[] {
 		return this.orders;
 	}
 
     /**
-     * Getter $createdAt
+     * Getter $created_at
      * @return {Date}
      */
-	public get $createdAt(): Date {
-		return this.createdAt;
+	public get $created_at(): Date {
+		return this.created_at;
+	}
+
+    /**
+     * Getter $social_links
+     * @return {SocialLink[]}
+     */
+	public get $social_links(): SocialLink[] {
+		return this.social_links;
 	}
 
     /**
@@ -167,19 +178,19 @@ export class User {
 	}
 
     /**
-     * Setter $firstName
+     * Setter $first_name
      * @param {string} value
      */
-	public set $firstName(value: string) {
-		this.firstName = value;
+	public set $first_name(value: string) {
+		this.first_name = value;
 	}
 
     /**
-     * Setter $lastName
+     * Setter $last_name
      * @param {string} value
      */
-	public set $lastName(value: string) {
-		this.lastName = value;
+	public set $last_name(value: string) {
+		this.last_name = value;
 	}
 
     /**
@@ -208,18 +219,18 @@ export class User {
 
     /**
      * Setter $roles
-     * @param {Array<any>} value
+     * @param {any[]} value
      */
-	public set $roles(value: Array<any>) {
+	public set $roles(value: any[]) {
 		this.roles = value;
 	}
 
     /**
-     * Setter image
+     * Setter $image
      * @param {Image} value
      */
-	public set image(value: Image) {
-		this._image = value;
+	public set $image(value: Image) {
+		this.image = value;
 	}
 
     /**
@@ -232,9 +243,9 @@ export class User {
 
     /**
      * Setter $addresses
-     * @param {Array<Address>} value
+     * @param {Address[]} value
      */
-	public set $addresses(value: Array<Address>) {
+	public set $addresses(value: Address[]) {
 		this.addresses = value;
 	}
 
@@ -256,18 +267,26 @@ export class User {
 
     /**
      * Setter $orders
-     * @param {Array<Order>} value
+     * @param {Order[]} value
      */
-	public set $orders(value: Array<Order>) {
+	public set $orders(value: Order[]) {
 		this.orders = value;
 	}
 
     /**
-     * Setter $createdAt
+     * Setter $created_at
      * @param {Date} value
      */
-	public set $createdAt(value: Date) {
-		this.createdAt = value;
+	public set $created_at(value: Date) {
+		this.created_at = value;
+	}
+
+    /**
+     * Setter $social_links
+     * @param {SocialLink[]} value
+     */
+	public set $social_links(value: SocialLink[]) {
+		this.social_links = value;
 	}
 
 

@@ -10,7 +10,7 @@ import { User } from '../models/user';
 export class ProfileComponent implements OnInit {
   user: User;
 
-  constructor(private auth: AuthService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
     if (this.auth.user === null) {

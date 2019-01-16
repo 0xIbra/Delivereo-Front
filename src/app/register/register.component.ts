@@ -25,10 +25,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(){
     if (this.plainPasswordFirst === this.plainPasswordSecond){
-      this.user.$firstName = 'Ibrahim';
-      this.user.$lastName = 'Abubakarov';
-      console.log(this.user);
-      M.toast({ html: 'Valide !' });
+      // this.user.$firstName = 'Ibrahim';
+      // this.user.$lastName = 'Abubakarov';
+      // console.log(this.user);
+      // M.toast({ html: 'Valide !' });
     }
   }
 
