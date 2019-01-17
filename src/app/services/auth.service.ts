@@ -134,10 +134,12 @@ export class AuthService {
       return false;
     }
   }
+  
 
   isAdmin() {
     console.log(this.user.$roles.includes('ROLE_OWNER'));
   }
+
 
   /**
    * This function gets the token from local storage and returns it as a string.

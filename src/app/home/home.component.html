@@ -7,15 +7,20 @@
       
       <form (ngSubmit)="onSubmit()" style="position: relative;">
         <div class="input-field flex search-container">
-          <input type="text" id="home_search_search" name="home_search[search]" required="required" class="modernize search-field"
+          <input type="text" (input)="searchCities()" [(ngModel)]="search" name="home_search" required="required" class="modernize search-field"
             placeholder="Entrer votre code postal" maxlength="5">
-          <button type="submit" id="home_search_Trouver" name="home_search[Trouver]" class="modernize">Trouver</button>
+          <button type="submit"  name="search_submit" class="modernize">Trouver</button>
         </div>
-        <div class="searchResults">
+        <div *ngIf="cities !== undefined && cities.length > 0" [class.active]="cities.length > 0" class="searchResults">
           <ul class="results">
+              <li *ngFor="let city of cities" class="result">
+                <a routerLink="/login" class="flex">
+                  <span class="material-icons">location_on</span>
+                  <span class="value">{{city.name}}, {{city.zip_code}}</span>
+                </a>
+              </li>
           </ul>
         </div>
-        <input type="hidden" id="home_search__token" name="home_search[_token]" value="QU8F1-zdKPrR94F1w8JyzN1Lu4KVqfPPebbVwKqbMf4">
       </form>
 
     </div>

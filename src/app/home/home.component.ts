@@ -12,6 +12,9 @@ import { AuthService } from '../services/auth.service';
 export class HomeComponent implements OnInit {
 
   categories: Category[];
+  search: string;
+
+  cities: any[];
 
   constructor(private api: ApiService) { }
 
@@ -34,7 +37,23 @@ export class HomeComponent implements OnInit {
 
 
   onSubmit() {
-    
+    alert(this.search);
+  }
+
+
+  searchCities() {
+    if (this.search.length > 3) {
+      this.api.searchCity(this.search)
+              .subscribe(
+                data => {
+                  let res: any = data;
+                  this.cities = res.data.data;
+                }, 
+                err => {
+                  console.log(err);
+                }
+              );
+    }
   }
 
 }

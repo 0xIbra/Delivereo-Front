@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Category } from '../models/category';
 import { Image } from '../models/image';
 
@@ -19,6 +19,8 @@ export class ApiService {
         return this.http.get(this.domain + 'api/categories');
   }
 
-
+  searchCity(query: string) {
+    return this.http.get(this.domain + 'api/city?zipCode='+ query);
+  }
 
 }
