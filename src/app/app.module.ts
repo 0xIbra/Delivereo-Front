@@ -16,6 +16,8 @@ import { ApiService } from './services/api.service';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginGuard } from './guards/login.guard';
+import { CitiesComponent } from './cities/cities.component';
+import { CityComponent } from './city/city.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { LoginGuard } from './guards/login.guard';
     HomeComponent,
     FooterComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CitiesComponent,
+    CityComponent
   ],
   imports: [
     BrowserModule,

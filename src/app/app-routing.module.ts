@@ -6,12 +6,16 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { CitiesComponent } from './cities/cities.component';
+import { CityComponent } from './city/city.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [LoginGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'search/city/:zip', component: CitiesComponent },
+  { path: 'city/restaurants/:city', component: CityComponent }
 
 ];
 

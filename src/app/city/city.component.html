@@ -1,0 +1,83 @@
+<div *ngIf="city !== undefined" class="page-wrapper">
+  <div class="container-fluid">
+    <div class="search-area">
+    </div>
+    <div class="row">
+      <div class="col s12">
+        Resultats pour la ville "{{city.name}}"
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l3">
+        <div class="card" id="sidedashboard">
+          <div class="card-content bg-white">
+            <span class="small-header">Trier par</span>
+            <li class="divider"></li>
+            <div class="categories">
+              <span class="small-subheader">Categories</span>
+              
+              <form (ngSubmit)="onSubmit()">
+                
+                <p *ngFor="let category of categories">
+                  <label>
+                    <input type="checkbox" [(ngModel)]="checklist[category.id]" name="categoryValue{{category.id}}" (change)="onCheck()" id="categoryValue{{category.id}}" value="{{category.id}}">
+                    <span><label for="categoryValue{{category.id}}">{{category.name}}</label></span>
+                  </label>
+                </p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m12 l9">
+        <div class="card">
+          <div class="card-content bg-white">
+            <div class="results">
+
+              <h6 *ngIf="restaurants.length == 0" style="margin: 0 !important;text-align: center;color: #999999;">Aucun restaurant</h6>
+
+              <div *ngFor="let restaurant of restaurants" class="hr-card">
+                <div class="row">
+                  <div class="col s12 m6 l4">
+                    <div class="image">
+                      <a>
+                        <img src="{{restaurant.image.url}}" alt="Photo de {{restaurant.name}}">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col s12 m6 l8">
+                    <div class="card-body">
+                      <span class="title"><a>{{restaurant.name}}</a></span>
+                      <div class="rating">
+                        <div class="icon success">
+                          <i class="material-icons">thumb_up</i>
+                          <span>{{restaurant.likes.length}}</span>
+                        </div>
+                        <div class="icon danger">
+                          <i class="material-icons">thumb_down</i>
+                          <span>{{restaurant.dislikes.length}}</span>
+                        </div>
+                      </div>
+                      <div class="category-list flex">
+                        <span *ngFor="let category of restaurant.categories; last as isLast">{{category.name}} <span style="display: inline;" *ngIf="!isLast">•</span> </span>
+                      </div>
+                      <div class="info">
+                        <div class="flex align-center">
+                          <i style="margin-right: 5px" class="material-icons">location_on</i>
+                          <span>{{restaurant.city.name}}, {{restaurant.city.zip_code}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
