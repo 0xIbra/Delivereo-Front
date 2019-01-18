@@ -18,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginGuard } from './guards/login.guard';
 import { CitiesComponent } from './cities/cities.component';
 import { CityComponent } from './city/city.component';
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CityComponent } from './city/city.component';
     RegisterComponent,
     ProfileComponent,
     CitiesComponent,
-    CityComponent
+    CityComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,

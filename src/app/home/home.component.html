@@ -14,7 +14,7 @@
         <div *ngIf="cities !== undefined && cities.length > 0" [class.active]="cities.length > 0" class="searchResults">
           <ul class="results">
               <li *ngFor="let city of cities" class="result">
-                <a routerLink="/login" class="flex">
+                <a [routerLink]="['/city/restaurants', city.id]" class="flex">
                   <span class="material-icons">location_on</span>
                   <span class="value">{{city.name}}, {{city.zip_code}}</span>
                 </a>

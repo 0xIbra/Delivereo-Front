@@ -39,4 +39,8 @@ export class ApiService {
     return this.http.get(this.domain+ 'api/restaurant/'+ params);
   }
 
+  getRestaurantData(restaurantId: string) {
+    return this.http.get(this.domain+ 'api/restaurant/data/'+ restaurantId);
+  }
+
 }

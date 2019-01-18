@@ -1,0 +1,117 @@
+<div *ngIf="restaurant !== undefined" class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col s12 m5 l4">
+        <div class="card" id="profileimage">
+          <div class="card-content">
+            <div class="image-wrapper">
+              <img src="{{restaurant.image.url}}" alt="Photo du {{restaurant.name}}">
+            </div>
+            <div class="profile-cred">
+              <span class="profile-title">{{restaurant.name}}</span>
+              <div class="location flex align-center justify-center">
+                <i class="material-icons">location_on</i>
+                <span class="ville">{{restaurant.city.name}}, {{restaurant.city.zip_code}}</span>
+              </div>
+              <div class="rating flex justify-center">
+                <div class="icon success">
+                  <i class="material-icons">thumb_up</i>
+                  <span>{{restaurant.likes.length}}</span>
+                </div>
+                <div class="icon danger">
+                  <i class="material-icons">thumb_down</i>
+                  <span>{{restaurant.dislikes.length}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="profileinfo">
+          <div class="card-content">
+            <div>
+              <span class="subheader">Horaires</span>
+              <div class="">
+                <span class="status success">Ouvre a 11h00</span>
+                <span class="status attention">Ferme a 23h00</span>
+              </div>
+            </div>
+            <span class="subheader">Contact</span>
+            <div class="row">
+              <div class="col s12">
+                <div class="row">
+                  <div class="profile-contact flex justify-center ">
+                    <a href="tel:{{restaurant.number}}" class="modernize flex align-center waves-effect waves-light">
+                      <i class="material-icons">phone_android</i>
+                      <span>Appeler</span>
+                    </a>
+                    <a href="mailto:{{restaurant.owner.email}}" class="modernize flex align-center waves-effect waves-light">
+                      <i class="material-icons">mail_outline</i>
+                      <span>Contacter</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7 l8">
+        <div class="card" id="profilecontent">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12">
+                <div class="flex align-center">
+                  <span class="row-header">Menus</span>
+                </div>
+              </div>
+
+
+              <div *ngFor="let menu of restaurant.menus" (click)="openModal(menu)" class="col s12 m6 cursor-pointer">
+                <div class="card basic modernize">
+                  <a class="menu-card" data-title="Kebab galette" data-description="Meilleur Kebab a Pau"
+                    data-price="5.5" data-id="1">
+                    <div class="card-content">
+                      <span class="card-title">{{menu.name}}</span>
+                      <p>{{menu.description}}</p>
+                      <span class="price status success">{{ menu.price | currency: 'EUR': true }}</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div *ngIf="modalMenu !== undefined" class="modal modernize menu-display" id="item-modal" tabindex="0">
+      <div class="modal-content">
+        <h4 class="modal-title">{{modalMenu.name}}</h4>
+        <p class="description">{{modalMenu.description}}</p>
+        <span class="price status success">{{modalMenu.price |  currency: 'EUR': true}}</span>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col s6 m4 l3">
+            <div class="quantity input">
+              <button class="dec modernize" (click)="decreaseQ()">
+                <span class="material-icons">remove</span>
+              </button>
+              <span class="quantity count">{{quantity}}</span>
+              <button class="inc modernize" (click)="increaseQ()">
+                <span class="material-icons">add</span>
+              </button>
+            </div>
+          </div>
+          <div class="col s6 m8 l9">
+            <a id="addtocart" [class.disabled]="!auth.isLoggedIn()" (click)="toCart(modalMenu)" class="modal-close modal-success waves-effect waves-light btn-flat">Panier</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
