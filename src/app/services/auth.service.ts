@@ -36,7 +36,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   register(payload: User) {
-
+    return this.http.post(this.registerEndpoint, JSON.stringify(payload));
   }
 
   /**

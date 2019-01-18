@@ -21,14 +21,26 @@ export class RegisterComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.user = new User({});
   }
 
   onSubmit(){
     if (this.plainPasswordFirst === this.plainPasswordSecond){
-      // this.user.$firstName = 'Ibrahim';
-      // this.user.$lastName = 'Abubakarov';
-      // console.log(this.user);
-      // M.toast({ html: 'Valide !' });
+      this.user.$password = this.plainPasswordFirst;
+      this.auth.register(this.user).subscribe(
+        data => {
+          let res: any = data;
+          M.toast({ html: res.message, displayLength: 5000 });
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+          M.toast({ html: err.error.message });
+        }
+      );
+
+    } else {
+      M.toast({ html: 'Les 2 mots de passe ne sont pas identiques.' });
     }
   }
 

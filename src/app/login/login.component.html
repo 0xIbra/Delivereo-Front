@@ -14,7 +14,7 @@
                           <form (submit)="form.form.valid && onSubmit()" #form="ngForm">
 
                               <div class="input-field">
-                                  <input type="text" #user= "ngModel" name="username" minlength="4" [(ngModel)]="username" value="{{username}}" required autocomplete="username" class="modernize" placeholder="Nom d'utilisateur ou Adresse e-mail">
+                                  <input type="text" #user="ngModel" name="username" minlength="4" [(ngModel)]="username" value="{{username}}" required autocomplete="username" class="modernize" placeholder="Nom d'utilisateur ou Adresse e-mail">
                                   <div *ngIf="user.errors?.minlength" class="alert danger">Nom d'utilisateur ou email doit se composer d'au moins de 4 characteres.</div>
                                   <div *ngIf="user.errors?.required && user.touched" class="alert danger">Veuillez entrer un nom d'utilisateur ou email</div>
                               </div>

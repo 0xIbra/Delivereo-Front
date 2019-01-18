@@ -6,36 +6,43 @@
           <div class="col s12">
             <div class="container-fluid">
               <h3 class="heading">Inscription</h3>
-              <form (ngSubmit)="onSubmit()">
+              <form (ngSubmit)="registerForm.form.valid && onSubmit()" #registerForm="ngForm">
                 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.$firstName" name="firstName" required class="modernize" placeholder="Prénom">
+                  <input type="text" required #firstname="ngModel" [(ngModel)]="user.$first_name"  name="firstName" class="modernize" placeholder="Prénom">
+                  <div *ngIf="firstname.errors?.required && (firstname.touched || firstname.dirty)" class="alert danger form-error">Le champ prénom est obligatoire.</div>
                 </div>
 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.$lastName" name="lastName" required class="modernize" placeholder="Nom">
+                  <input type="text" #lastname="ngModel" [(ngModel)]="user.$last_name" name="lastName" required class="modernize" placeholder="Nom">
+                  <div *ngIf="lastname.errors?.required && (lastname.touched || lastname.dirty)" class="alert danger form-error">Le champ nom est obligatoire.</div>
                 </div>
 
                 <div class="input-field">
-                  <input type="email" [(ngModel)]="user.$email" name="email" required class="modernize" placeholder="Adresse e-mail">
+                  <input type="email" #email="ngModel" [(ngModel)]="user.$email" name="email" required class="modernize" placeholder="Adresse e-mail">
+                  <div *ngIf="email.errors?.required && (email.touched || email.dirty)" class="alert danger form-error">Le champ email est obligatoire.</div>
                 </div>
 
                 <div class="input-field">
-                  <input type="text" [(ngModel)]="user.$username" name="username" required class="modernize" placeholder="Nom d'utilisateur">
+                  <input type="text" #username="ngModel" [(ngModel)]="user.$username" name="username" required class="modernize" placeholder="Nom d'utilisateur">
+                  <div *ngIf="username.errors?.required && (username.touched || username.dirty)" class="alert danger form-error">Le champ nom d'utilisateur est obligatoire.</div>
                 </div>
 
                 <div class="input-field modernize">
-                  <select [(ngModel)]="user.$gender" name="gender">
+                  <select #gender="ngModel" required [(ngModel)]="user.$gender" name="gender">
                     <option *ngFor="let gender of genders; let first = first" [selected]="first"  [ngValue]="gender">{{ gender.name }}</option>
                   </select>
+                  <div *ngIf="gender.errors?.required && (gender.touched || gender.dirty)" class="alert danger form-error">Le champ sexe d'utilisateur est obligatoire.</div>
                 </div>
 
                 <div class="input-field">
-                  <input type="password" [(ngModel)]="plainPasswordFirst" name="plainPasswordFirst" required class="modernize" placeholder="Mot de passe">
+                  <input type="password" #pass1="ngModel" [(ngModel)]="plainPasswordFirst" name="plainPasswordFirst" required class="modernize" placeholder="Mot de passe">
+                  <div *ngIf="pass1.errors?.required && (pass1.touched || pass1.dirty)" class="alert danger form-error">Le champ mot de passe est obligatoire.</div>
                 </div>
 
                 <div class="input-field">
-                  <input type="password" [(ngModel)]="plainPasswordSecond" name="plainPasswordSecond" required class="modernize" placeholder="Confirmez">
+                  <input type="password" #pass2="ngModel" [(ngModel)]="plainPasswordSecond" name="plainPasswordSecond" required class="modernize" placeholder="Confirmez">
+                  <div *ngIf="pass2.errors?.required && (pass2.touched || pass2.dirty)" class="alert danger form-error">Merci de confirmer votre mot de passe.</div>
                 </div>
 
                 <div class="input-field submit-wrapper">
