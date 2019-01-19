@@ -1,7 +1,7 @@
 <div class="page-wrapper">
   <div class="container-fluid">
 
-    <div *ngIf="cart.items !== undefined && cart.items.length <= 0">
+    <div *ngIf="auth.cart !== undefined && auth.cart.items !== undefined && auth.cart.items.length <= 0">
       <div class="heading-breadcrumbs">
           <span class="step cart active">Panier</span>
           <i class="material-icons">arrow_right</i>
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div *ngIf="cart.items !== undefined && cart.items.length > 0">
+    <div *ngIf="auth.cart !== undefined && auth.cart.items !== undefined && auth.cart.items.length > 0">
 
       <div class="heading-breadcrumbs">
           <span class="step cart active">Panier</span>
@@ -38,7 +38,7 @@
             <div class="card-content">
               <div class="row">
 
-                <div *ngFor="let item of cart.items" class="col s12 l6 cart-item-container-2">
+                <div *ngFor="let item of auth.cart.items" class="col s12 l6 cart-item-container-2">
                   <div class="card basic modernize menu-card-2">
                     <a>
                     </a>
@@ -80,7 +80,7 @@
               <div class="row">
                 <div class="col s12">
                   
-                  <div *ngFor="let item of cart.items" class="flex align-center justify-space-between line cost-card-2">
+                  <div *ngFor="let item of auth.cart.items" class="flex align-center justify-space-between line cost-card-2">
                     <span class="menu-name">{{item.menu.name}} <span style="display: inline;" class="quantity">x{{item.quantity}}</span></span>
                     <span class="menu-price">{{item.menu.price * item.quantity | currency: 'EUR': true}}</span>
                   </div>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="col s12">
                   <div class="flex justify-center">
-                    <a style="margin-top: 15px;" href="/user/checkout" class="stripe-btn waves-effect ">Poursuivre</a>
+                    <a style="margin-top: 15px;" [routerLink]="['/checkout']" class="stripe-btn waves-effect ">Poursuivre</a>
                   </div>
                 </div>
               </div>

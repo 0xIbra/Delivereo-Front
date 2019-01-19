@@ -33,6 +33,7 @@ export class AuthService {
    * This variable is used as a global variable to provide other components access.
    */
   user: User = null;
+  cart: any;
 
   
   constructor(private http: HttpClient, private router: Router) { }
@@ -44,9 +45,17 @@ export class AuthService {
    * it sends back the data as JSON.
    * 
    */
-  getCart() {
+  loadCart() {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
-    return this.http.get(this.cartEndpoint, { headers: headers });
+    this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
+      data => {
+        let res: any = data;
+        this.cart = res.data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 
@@ -171,6 +180,13 @@ export class AuthService {
     }
   }
   
+  setCart(cart: any) {
+    this.cart = cart;
+  }
+
+  getCart() {
+    return this.cart;
+  }
 
   isAdmin() {
     console.log(this.user.$roles.includes('ROLE_OWNER'));
