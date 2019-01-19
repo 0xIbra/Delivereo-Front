@@ -6,6 +6,8 @@
         <a href="#" data-target="sidebar-nav" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li *ngIf="auth.user !== null && auth.isLoggedIn() && auth.user.checkRole('ROLE_CONSUMER')"><a [routerLink]="['cart']"><i class="material-icons">shopping_cart</i></a></li>
+          <li *ngIf="auth.user !== null && auth.isLoggedIn() && auth.isAdmin()"><a [routerLink]="['admin']">Tableau de bord</a></li>
+          <li *ngIf="auth.user !== null && auth.isLoggedIn() && auth.isOwner()"><a [routerLink]="['owner']">Tableau de bord</a></li>
           <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['partner']">Devenez partenaire</a></li>
           <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['login']">Se connecter</a></li>
           <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['register']">S'inscrire</a></li>

@@ -78,11 +78,12 @@ export class RestaurantComponent implements OnInit, AfterContentInit {
   }
 
 
-  toCart(menu: Object) {
+  toCart(menu: Object, quantity: number) {
     if (!this.auth.isLoggedIn()) {
       M.toast({ html: 'Vous devez être connectée pour accéder au panier' });
+    } else {
+      this.auth.addToCart(menu, quantity);
     }
-    
   }
 
 }

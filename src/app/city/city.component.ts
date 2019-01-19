@@ -54,7 +54,6 @@ export class CityComponent implements OnInit {
               data => {
                 let res: any = data;
                 this.restaurants = res.data;
-                console.log(res);
               }, 
               err => {
                 console.log(err);

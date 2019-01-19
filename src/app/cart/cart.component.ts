@@ -59,4 +59,12 @@ export class CartComponent implements OnInit {
     return total;
   }
 
+  removeFromCart(item: any) {
+    if (!this.auth.isLoggedIn()) {
+      M.toast({ html: 'Vous devez être connectée pour accéder au panier' });
+    } else {
+      this.auth.removeFromCart(item);
+    }
+  }
+
 }

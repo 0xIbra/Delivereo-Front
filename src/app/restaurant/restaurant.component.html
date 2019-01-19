@@ -107,7 +107,7 @@
             </div>
           </div>
           <div class="col s6 m8 l9">
-            <a id="addtocart" [class.disabled]="!auth.isLoggedIn()" (click)="toCart(modalMenu)" class="modal-close modal-success waves-effect waves-light btn-flat">Panier</a>
+            <a id="addtocart" [class.disabled]="!auth.isLoggedIn()" (click)="toCart(modalMenu, quantity)" class="modal-close modal-success waves-effect waves-light btn-flat">Panier</a>
           </div>
         </div>
       </div>

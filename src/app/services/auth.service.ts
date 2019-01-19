@@ -57,6 +57,41 @@ export class AuthService {
       }
     );
   }
+  
+
+  addToCart(item: any, quantity: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let params = new HttpParams().set('itemId', item.id).set('quantity', quantity);
+    this.http.post(this.baseUrl+ 'api/auth/cart/add', params, { headers: headers }).subscribe(
+      data => {
+        let res: any = data;
+        M.toast({ html: res.data.message });
+        console.log(data);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+  removeFromCart(item: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    const options = {
+      headers: headers,
+      body: 'itemId='+ item.id
+    };
+    this.http.delete(this.baseUrl+ 'api/auth/cart/remove', options).subscribe(
+      data => {
+        let res: any = data;
+        M.toast({ html: res.data.message });
+        this.loadCart();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 
 
   increaseCartQuantity(id) {
@@ -176,6 +211,7 @@ export class AuthService {
     if (!this.helper.isTokenExpired(token)) {
       return true;
     }else {
+      this.logout();
       return false;
     }
   }
@@ -188,8 +224,31 @@ export class AuthService {
     return this.cart;
   }
 
+
+  /**
+   * This function checks first if the current user is logged in and if so, it checks if the current user is an administration or not.
+   * 
+   * @returns boolean
+   */
   isAdmin() {
-    console.log(this.user.$roles.includes('ROLE_OWNER'));
+    if (this.isLoggedIn()) {
+      return this.user.$roles.includes('ROLE_ADMIN');
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * This function first checks if the current user is logged in and if so, it checks if the user is an owner or not.
+   * 
+   * @returns boolean
+   */
+  isOwner() {
+    if (this.isLoggedIn()) {
+      return this.user.$roles.includes('ROLE_OWNER') && this.user.$restaurant !== undefined;
+    } else {
+      return false;
+    }
   }
 
 

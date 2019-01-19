@@ -36,7 +36,7 @@
           <div class="card-content bg-white">
             <div class="results">
 
-              <h6 *ngIf="restaurants.length == 0" style="margin: 0 !important;text-align: center;color: #999999;">Aucun restaurant</h6>
+              <h6 *ngIf="restaurants !== undefined && restaurants.length == 0" style="margin: 0 !important;text-align: center;color: #999999;">Aucun restaurant</h6>
 
               <div *ngFor="let restaurant of restaurants" class="hr-card">
                 <div class="row">
