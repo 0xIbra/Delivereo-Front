@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
         data => {
           let res: any = data;
           M.toast({ html: res.message, displayLength: 5000 });
-          console.log(res);
         },
         err => {
           console.log(err);

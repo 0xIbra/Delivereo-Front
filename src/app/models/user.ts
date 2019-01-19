@@ -34,10 +34,10 @@ export class User {
         this.gender = user.gender;
         this.addresses = user.addresses;
         this.restaurant = user.restaurant;
-        this.cart = user.cart;
+        // this.cart = user.cart;
         this.orders = user.orders;
-        this.created_at = user.created_at;
-        this.social_links = user.social_links;
+        // this.created_at = user.created_at;
+        // this.social_links = user.social_links;
     }
 
     

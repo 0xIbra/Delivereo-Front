@@ -19,6 +19,7 @@ import { LoginGuard } from './guards/login.guard';
 import { CitiesComponent } from './cities/cities.component';
 import { CityComponent } from './city/city.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
     ProfileComponent,
     CitiesComponent,
     CityComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

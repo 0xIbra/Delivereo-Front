@@ -9,10 +9,10 @@
                                 <img *ngIf="auth.user !== null && auth.user.$image !== undefined && auth.user.$image !== null"
                                     src="{{ auth.user.$image.url }}" alt="Photo de {{auth.user.$first_name}} {{auth.user.$last_name}}">
                                 
-                                <img *ngIf="auth.user !== null &&auth.user.$image === undefined && auth.user.$gender.$id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png"
+                                <img *ngIf="auth.user !== null &&auth.user.$image === undefined && auth.user.$gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png"
                                     alt="Default photo">
 
-                                <img *ngIf="auth.user !== null && auth.user.$image === undefined && auth.user.$gender.$id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
+                                <img *ngIf="auth.user !== null && auth.user.$image === undefined && auth.user.$gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
                                     alt="Default photo">
                             </div>
                             <div class="profile-cred">

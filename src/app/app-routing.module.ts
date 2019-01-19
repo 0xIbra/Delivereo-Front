@@ -9,6 +9,7 @@ import { LoginGuard } from './guards/login.guard';
 import { CitiesComponent } from './cities/cities.component';
 import { CityComponent } from './city/city.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
   { path: 'search/city/:zip', component: CitiesComponent },
   { path: 'city/restaurants/:city', component: CityComponent },
-  { path: 'restaurant/:id', component: RestaurantComponent }
+  { path: 'restaurant/:id', component: RestaurantComponent },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] }
 
 ];
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams,  } from '@angular/common/http';
 import { User } from '../models/user';
 import { Sidenav } from 'materialize-css';
 import { Image } from '../models/image';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -16,10 +17,11 @@ export class AuthService {
   readonly rememberKey: string = 'rememberme';
   readonly userKey: string = 'user';
   
-  domain: string = 'http://localhost/';
-  loginEndpoint:string = this.domain + 'api/login_check';
-  registerEndpoint:string = this.domain + 'api/register';
-  accountEndpoint:string = this.domain + 'api/auth/me';
+  baseUrl: string = environment.baseUrl;
+  loginEndpoint: string = this.baseUrl + 'api/login_check';
+  registerEndpoint: string = this.baseUrl + 'api/register';
+  accountEndpoint: string = this.baseUrl + 'api/auth/me';
+  cartEndpoint: string = this.baseUrl + 'api/auth/cart';
 
   /**
    * This variable comes from the '@0auth/angular-jwt' Module. 
@@ -35,6 +37,40 @@ export class AuthService {
   
   constructor(private http: HttpClient, private router: Router) { }
 
+
+  /**
+   * This function gets the cart data of current user by sending an HTTP GET request with the JWT Token of the user 
+   * that the back-end server uses to identify the user and if after a series of security validations the token is valid, 
+   * it sends back the data as JSON.
+   * 
+   */
+  getCart() {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.get(this.cartEndpoint, { headers: headers });
+  }
+
+
+  increaseCartQuantity(id) {
+    let params = new HttpParams().set('itemId', id);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.put(this.baseUrl+ 'api/auth/cart/increase', params, { headers: headers });
+  }
+
+
+  decreaseCartQuantity(id) {
+    let params = new HttpParams().set('itemId', id);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.put(this.baseUrl+ 'api/auth/cart/decrease', params, { headers: headers });
+  }
+
+
+  /**
+   * This function is used to register a new user.
+   * It receives a User object from the registration component and sends an HTTP POST request to the backend.
+   * The server then checks if the data is valid and if so persists it to the db and responds with an success message.
+   * 
+   * @param payload 
+   */
   register(payload: User) {
     return this.http.post(this.registerEndpoint, JSON.stringify(payload));
   }
@@ -82,7 +118,7 @@ export class AuthService {
                     .subscribe(
                       data => {
                         let res: any = data;
-                        this.user = new User(res.user);
+                        this.user = new User(res.data);
                         this.storeUser(this.user);
                       },
                       err => {

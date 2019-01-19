@@ -1,0 +1,109 @@
+<div class="page-wrapper">
+  <div class="container-fluid">
+
+    <div *ngIf="cart.items !== undefined && cart.items.length <= 0">
+      <div class="heading-breadcrumbs">
+          <span class="step cart active">Panier</span>
+          <i class="material-icons">arrow_right</i>
+          <span class="step checkout">Validation</span>
+          <i class="material-icons">arrow_right</i>
+          <span class="step complete">Terminée</span>
+        </div>
+    
+        <div class="row">
+          <div class="col s12">
+            <br>
+            <h4 class="center">Votre panier est vide</h4>
+            <br>
+            <div class="flex justify-center">
+              <a [routerLink]="['/']" class="modernize">Retour</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="cart.items !== undefined && cart.items.length > 0">
+
+      <div class="heading-breadcrumbs">
+          <span class="step cart active">Panier</span>
+          <i class="material-icons">arrow_right</i>
+          <span class="step checkout">Validation</span>
+          <i class="material-icons">arrow_right</i>
+          <span class="step complete">Terminée</span>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m7 l8">
+          <div class="card">
+            <div class="card-content">
+              <div class="row">
+
+                <div *ngFor="let item of cart.items" class="col s12 l6 cart-item-container-2">
+                  <div class="card basic modernize menu-card-2">
+                    <a>
+                    </a>
+                    <div class="card-content">
+                      <a>
+                        <span class="card-title">
+                          {{item.menu.name}}
+                          <span style="display: inline;" class="card-title-quantity">x{{item.quantity}}</span>
+                        </span>
+                      </a>
+                      <a style="cursor: pointer;" class="item-remove">
+                        <i class="material-icons close">close</i>
+                      </a>
+                      <p>{{item.menu.description}}</p>
+                      <span class="price status success">{{item.menu.price | currency: 'EUR': true}}</span>
+                
+                      <div class="on-card quantity input">
+                        <button (click)="decreaseQ(item)" class="decrease modernize">
+                          <span class="material-icons">remove</span>
+                        </button>
+                        <span class="quantity count">{{item.quantity}}</span>
+                        <button (click)="increaseQ(item)" class="increase modernize">
+                          <span class="material-icons">add</span>
+                        </button>
+                      </div>
+                
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col s12 m5 l4">
+          <div class="card" id="checkout">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12">
+                  
+                  <div *ngFor="let item of cart.items" class="flex align-center justify-space-between line cost-card-2">
+                    <span class="menu-name">{{item.menu.name}} <span style="display: inline;" class="quantity">x{{item.quantity}}</span></span>
+                    <span class="menu-price">{{item.menu.price * item.quantity | currency: 'EUR': true}}</span>
+                  </div>
+
+                  <br>
+                  <div class="flex align-center justify-space-between line">
+                    <span>Total</span>
+                    <span class="total-price">{{getTotal() | currency: 'EUR': true}}</span>
+                  </div>
+                </div>
+                <div class="col s12">
+                  <div class="flex justify-center">
+                    <a style="margin-top: 15px;" href="/user/checkout" class="stripe-btn waves-effect ">Poursuivre</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+
+    </div>
+
+  </div>
+</div>
