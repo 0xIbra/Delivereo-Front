@@ -23,6 +23,13 @@ export class AuthService {
   accountEndpoint: string = this.baseUrl + 'api/auth/me';
   cartEndpoint: string = this.baseUrl + 'api/auth/cart';
 
+  readonly roles = {
+    ROLE_CONSUMER: 'Consommateur',
+    ROLE_OWNER: 'Partenaire',
+    ROLE_ADMIN: 'Administrateur'
+  }
+  
+
   /**
    * This variable comes from the '@0auth/angular-jwt' Module. 
    * It is used to check if the JWT token is expired.
@@ -36,8 +43,14 @@ export class AuthService {
   cart: any;
 
   
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
+
+  changePassword(payload: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let params = new HttpParams().set('currentPassword', payload.currentPassword).set('newPassword', payload.newPassword);
+    return this.http.put(this.baseUrl+ 'api/auth/password/change', params, { headers: headers });
+  }
 
   /**
    * This function gets the cart data of current user by sending an HTTP GET request with the JWT Token of the user 
@@ -200,7 +213,7 @@ export class AuthService {
   /**
    * This function checks first if the JWT token is available and if so it checks if it is expired or not.
    * 
-   * @returns boolean(True || False)
+   * @returns boolean
    */
   isLoggedIn() {
     const token = this.getToken();

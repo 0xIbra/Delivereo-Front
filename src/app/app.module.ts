@@ -20,6 +20,7 @@ import { CitiesComponent } from './cities/cities.component';
 import { CityComponent } from './city/city.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { CartComponent } from './cart/cart.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CartComponent } from './cart/cart.component';
     CitiesComponent,
     CityComponent,
     RestaurantComponent,
-    CartComponent
+    CartComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

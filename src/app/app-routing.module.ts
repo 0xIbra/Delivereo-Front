@@ -10,6 +10,7 @@ import { CitiesComponent } from './cities/cities.component';
 import { CityComponent } from './city/city.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { CartComponent } from './cart/cart.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'search/city/:zip', component: CitiesComponent },
   { path: 'city/restaurants/:city', component: CityComponent },
   { path: 'restaurant/:id', component: RestaurantComponent },
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] }
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] }
 
 ];
 
