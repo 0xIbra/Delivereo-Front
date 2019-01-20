@@ -29,6 +29,10 @@ export class AuthService {
     ROLE_ADMIN: 'Administrateur'
   }
   
+  readonly genders = [
+    { id: 1, name: "Homme" },
+    { id: 2, name: "Femme" }
+  ];
 
   /**
    * This variable comes from the '@0auth/angular-jwt' Module. 
@@ -44,6 +48,24 @@ export class AuthService {
 
   
   constructor(private http: HttpClient, private router: Router) {}
+
+  editUser(user: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.put(this.baseUrl+ 'api/auth/me/edit', JSON.stringify(user), { headers: headers });
+  }
+
+  uploadImage(image) {
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer '+ this.getToken() });
+    let data = new FormData();
+    data.append('image', image, 'image');
+    return this.http.post(this.baseUrl+ 'api/auth/image/add', data, { headers: headers });
+  }
+
+
+  deleteImage() {
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.delete(this.baseUrl+ 'api/auth/image/delete', { headers: headers });
+  }
 
 
   changePassword(payload: any) {
@@ -184,6 +206,13 @@ export class AuthService {
                     );
     }
   }
+
+
+  reloadUser() {
+    localStorage.removeItem(this.userKey);
+    this.loadUser();
+  }
+
 
   /**
    * This function receives 2 params, which are an array which contains the JWT token and a refresh token, and a boolean

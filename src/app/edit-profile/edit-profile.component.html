@@ -1,0 +1,77 @@
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col s12 l4">
+        <div class="card" id="profileimage">
+          <div class="card-content">
+            <div class="image-wrapper">
+              <form (ngSubmit)="imageForm.form.valid" #imageForm="ngForm" enctype="multipart/form-data">
+                <div *ngIf="auth.user.$image === undefined">
+                  <input (change)="uploadImage($event)" type="file" accept="image/*" name="image" class="image-uploader" title="Ajouter votre image">
+                  <span class="material-icons">camera_alt</span>
+                </div>
+                <div *ngIf="auth.user.$image !== undefined">
+                  <input (change)="uploadImage($event)" type="file" name="image" class="image-uploader" title="Changer votre image">
+                  <img src="{{auth.user.$image.url}}" alt="Photo de {{auth.user.$first_name}} {{auth.user.$last_name}}">
+                </div>
+              </form>
+            </div>
+
+            <div class="row">
+              <div class="col s12 m8 offset-m2">
+                <div style="padding-top: 10px;">
+
+                  <div *ngIf="auth.user.$image !== undefined" class="flex justify-center">
+                    <a (click)="deleteImage()" style="cursor: pointer;" class="modernize danger center-align">Supprimer image</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-cred">
+              <span class="profile-title">{{auth.user.$first_name}} {{auth.user.$last_name}}</span>
+              <div class="location flex align-center justify-center flex-column">
+                <span *ngFor="let role of auth.user.$roles" class="ville">{{auth.roles[role]}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 l8">
+        <div class="card">
+          <div class="card-content">
+            <form (ngSubmit)="userForm.form.valid && userFormSubmit()" #userForm="ngForm">
+              <div class="input-field ">
+                <input type="text" #firstName="ngModel" required minlength="2" [(ngModel)]="user.first_name" name="firstName" class="modernize" placeholder="Prénom">
+                <div *ngIf="firstName.errors?.required" class="alert danger">Le prénom est obligatoire.</div>
+                <div *ngIf="firstName.errors?.minlength" class="alert danger">Le prénom doit contenir au moins 2 caractères.</div>
+              </div>
+              <div class="input-field ">
+                <input type="text" #lastName="ngModel" required minlength="2" [(ngModel)]="user.last_name" name="lastName" class="modernize" placeholder="Nom">
+                <div *ngIf="lastName.errors?.required" class="alert danger">Le nom est obligatoire.</div>
+                <div *ngIf="lastName.errors?.minlength" class="alert danger">Le nom doit contenir au moins 2 caractères.</div>
+              </div>
+              <div class="input-field ">
+                <input type="text" #username="ngModel" minlength="4" [(ngModel)]="user.username" name="username" required pattern=".{2,}" class="modernize" placeholder="Nom d'utilisateur">
+                <div *ngIf="username.errors?.required" class="alert danger">Le nom d'utilisateur est obligatoire.</div>
+                <div *ngIf="username.errors?.minlength" class="alert danger">Le nom d'utilisateur doit contenir au moins 4 caractères.</div>
+              </div>
+
+              <div class="input-field modernize">
+                <select #gender="ngModel" [(ngModel)]="user.gender" required name="gender" class="modernize">
+                  <option *ngFor="let gender of auth.genders" [ngValue]="gender">{{gender.name}}</option>
+                </select>
+                <div *ngIf="gender.errors?.required" class="alert danger">Le champ sexe est obligatoire.</div>
+              </div>
+
+              <div class="input-field flex justify-center">
+                <input type="submit" class="modernize btn" value="Mettre à jour">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
