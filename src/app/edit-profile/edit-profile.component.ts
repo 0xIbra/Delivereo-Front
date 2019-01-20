@@ -17,7 +17,6 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.user = {};
     this.initFormData();
-    this.chosenGender = {};
   }
 
   initFormData() {

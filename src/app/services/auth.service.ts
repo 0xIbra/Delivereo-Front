@@ -50,11 +50,11 @@ export class AuthService {
   
   constructor(private http: HttpClient, private router: Router) {}
 
-  deleteAddress(address: Address) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
-    let params = new HttpParams().set('addressId', address.$id);
-    return this.http.delete(this.baseUrl+ 'api/auth/address/delete', { headers: headers, params: params });
-  }
+  // deleteAddress(address: Address) {
+  //   let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+  //   let params = new HttpParams().set('addressId', address.$id+"");
+  //   return this.http.delete(this.baseUrl+ 'api/auth/address/delete', { headers: headers, params: params });
+  // }
 
   addAddress(address: Address) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
@@ -209,6 +209,7 @@ export class AuthService {
                     .subscribe(
                       data => {
                         let res: any = data;
+                        console.log(res);
                         this.user = new User(res.data);
                         this.storeUser(this.user);
                       },

@@ -5,7 +5,9 @@ export class Image {
 
 
     constructor(image: any) {
-        this.id = image.id;
+        if (image.id !== undefined) {
+            this.id = image.id;
+        }
         this.title = image.title;
         this.url = image.url;
     }

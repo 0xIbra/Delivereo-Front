@@ -9,7 +9,9 @@ export class Address {
 
 
     constructor(address: any) {
-        this.id = address.id;
+        if (address.id !== undefined) {
+            this.id = address.id;
+        }
         this.name = address.name;
         this.line1 = address.line1;
         if (address.line2 !== undefined) {
@@ -25,7 +27,6 @@ export class Address {
     public setCity(city: City) {
         this.city = city;
     }
-
 
     /**
      * Getter $id

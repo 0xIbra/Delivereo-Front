@@ -6,7 +6,9 @@ export class Category {
     private image: Image;
     
     constructor(category: any) {
-        this.id = category.id;
+        if (category.id !== undefined) {
+            this.id = category.id;
+        }
         this.name = category.name;
         if (category.image !== undefined) {
             this.image = new Image(category.image);

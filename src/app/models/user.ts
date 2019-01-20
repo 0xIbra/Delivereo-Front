@@ -7,7 +7,7 @@ import { Restaurant } from './restaurant';
 import { SocialLink } from './social-link';
 
 export class User {
-    private id: number;
+    private id: any;
     private first_name: string;
     private last_name: string;
     private email: string;
@@ -25,7 +25,9 @@ export class User {
 
 
     constructor(user: any) {
-        this.id = user.id;
+        if (user.id !== undefined) {
+            this.id = user.id;
+        }
         this.first_name = user.first_name;
         this.last_name = user.last_name;
         this.email = user.email;
@@ -68,11 +70,13 @@ export class User {
     
 
 
+
+
     /**
      * Getter $id
-     * @return {number}
+     * @return {any}
      */
-	public get $id(): number {
+	public get $id(): any {
 		return this.id;
 	}
 
@@ -190,9 +194,9 @@ export class User {
 
     /**
      * Setter $id
-     * @param {number} value
+     * @param {any} value
      */
-	public set $id(value: number) {
+	public set $id(value: any) {
 		this.id = value;
 	}
 
@@ -307,6 +311,7 @@ export class User {
 	public set $social_links(value: SocialLink[]) {
 		this.social_links = value;
 	}
+    
 
 
 

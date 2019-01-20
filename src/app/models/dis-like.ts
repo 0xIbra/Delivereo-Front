@@ -1,8 +1,6 @@
-import { User } from './user';
 
 export class DisLike {
     private id: number;
-    // private user: User;
     private disliked_at: Date;
 
 

@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   plainPasswordFirst: string;
   plainPasswordSecond: string;
 
-  genders: Gender[] = [new Gender(1, 'Homme'), new Gender(2, 'Femme')];
+  genders: Gender[] = [new Gender({ id: 1, name: 'Homme' }), new Gender({ id: 2, name: 'Femme' })];
   
 
   constructor(private auth: AuthService) { }

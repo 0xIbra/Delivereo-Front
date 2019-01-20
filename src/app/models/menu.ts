@@ -12,14 +12,18 @@ export class Menu {
 
 
     constructor(menu: any) {
-        this.id = menu.id;
+        if (menu.id !== undefined) {
+            this.id = menu.id;
+        }
         this.name = menu.name;
         this.description = menu.description;
         this.price = menu.price;
         if (menu.image !== undefined) {
             this.image = new Image(menu.image);
         }
-        this.category = new Category(menu.category);
+        if (menu.category !== undefined) {
+            this.category = new Category(menu.category);
+        }
     }    
 
 

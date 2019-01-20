@@ -8,8 +8,13 @@ export class OrderMenu {
 
 
     constructor(ordermenu: any) {
-        this.id = ordermenu.id;
-        this.menu = new Menu(ordermenu.menu);
+        if (ordermenu.id !== undefined) {
+            this.id = ordermenu.id;
+        }
+        if (ordermenu.menu !== undefined) {
+            this.menu = new Menu(ordermenu.menu);
+        }
+        
         this.quantity = ordermenu.quantity;
     }
 

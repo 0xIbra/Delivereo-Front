@@ -1,17 +1,12 @@
-import { User } from './user';
 
 export class Like {
     private id: number;
-    // private user: User;
     private liked_at: Date;
 
     constructor(like: any) {
         this.id = like.id;
         this.liked_at = like.liked_at;
     }
-
-
-
 
     /**
      * Getter $id

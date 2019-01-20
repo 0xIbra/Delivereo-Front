@@ -14,7 +14,11 @@ export class Order {
 
     constructor(order: any) {
         this.items = new Array<OrderMenu>()
-        this.id = order.id;
+
+        if (order.id !== undefined) {
+            this.id = order.id;
+        }
+
         this.order_number = order.order_number;
         this.ordered_at = new Date(order.ordered_at);
         this.total_price = order.total_price;
