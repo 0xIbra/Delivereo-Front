@@ -5,13 +5,29 @@ import { OrderMenu } from './order-menu';
 
 export class Order {
     private id: number;
-    private orderNumber: string;
-    private orderedAt: Date;
-    private totalPrice: number;
-    private deliveryAddress: Address;
+    private order_number: string;
+    private ordered_at: Date;
+    private total_price: number;
+    private delivery_address: Address;
     private consumer: User;
-    private items: Array<OrderMenu>;
+    private items: OrderMenu[];
 
+    constructor(order: any) {
+        this.items = new Array<OrderMenu>()
+        this.id = order.id;
+        this.order_number = order.order_number;
+        this.ordered_at = new Date(order.ordered_at);
+        this.total_price = order.total_price;
+        this.delivery_address = new Address(order.delivery_address);
+        if (order.consumer !== undefined) {
+            this.consumer = order.consumer;
+        }
+        if (order.items.length > 0) {
+            order.items.forEach(item => {
+                this.items.push(new OrderMenu(item));
+            });
+        }
+    }
 
 
 
@@ -24,35 +40,35 @@ export class Order {
 	}
 
     /**
-     * Getter $orderNumber
+     * Getter $order_number
      * @return {string}
      */
-	public get $orderNumber(): string {
-		return this.orderNumber;
+	public get $order_number(): string {
+		return this.order_number;
 	}
 
     /**
-     * Getter $orderedAt
+     * Getter $ordered_at
      * @return {Date}
      */
-	public get $orderedAt(): Date {
-		return this.orderedAt;
+	public get $ordered_at(): Date {
+		return this.ordered_at;
 	}
 
     /**
-     * Getter $totalPrice
-     * @return {number }
+     * Getter $total_price
+     * @return {number}
      */
-	public get $totalPrice(): number  {
-		return this.totalPrice;
+	public get $total_price(): number {
+		return this.total_price;
 	}
 
     /**
-     * Getter $deliveryAddress
+     * Getter $delivery_address
      * @return {Address}
      */
-	public get $deliveryAddress(): Address {
-		return this.deliveryAddress;
+	public get $delivery_address(): Address {
+		return this.delivery_address;
 	}
 
     /**
@@ -80,35 +96,35 @@ export class Order {
 	}
 
     /**
-     * Setter $orderNumber
+     * Setter $order_number
      * @param {string} value
      */
-	public set $orderNumber(value: string) {
-		this.orderNumber = value;
+	public set $order_number(value: string) {
+		this.order_number = value;
 	}
 
     /**
-     * Setter $orderedAt
+     * Setter $ordered_at
      * @param {Date} value
      */
-	public set $orderedAt(value: Date) {
-		this.orderedAt = value;
+	public set $ordered_at(value: Date) {
+		this.ordered_at = value;
 	}
 
     /**
-     * Setter $totalPrice
-     * @param {number } value
+     * Setter $total_price
+     * @param {number} value
      */
-	public set $totalPrice(value: number ) {
-		this.totalPrice = value;
+	public set $total_price(value: number) {
+		this.total_price = value;
 	}
 
     /**
-     * Setter $deliveryAddress
+     * Setter $delivery_address
      * @param {Address} value
      */
-	public set $deliveryAddress(value: Address) {
-		this.deliveryAddress = value;
+	public set $delivery_address(value: Address) {
+		this.delivery_address = value;
 	}
 
     /**
@@ -126,5 +142,7 @@ export class Order {
 	public set $items(value: Array<OrderMenu>) {
 		this.items = value;
 	}
+
+    
 
 }

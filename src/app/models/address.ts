@@ -8,6 +8,24 @@ export class Address {
     private city: City;
 
 
+    constructor(address: any) {
+        this.id = address.id;
+        this.name = address.name;
+        this.line1 = address.line1;
+        if (address.line2 !== undefined) {
+            this.line2 = address.line2;
+        }
+        if (address.city !== undefined) {
+            this.city = new City(address.city);
+        }
+        this.city = new City({});
+    }
+
+
+    public setCity(city: City) {
+        this.city = city;
+    }
+
 
     /**
      * Getter $id

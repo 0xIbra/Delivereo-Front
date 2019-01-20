@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +25,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { registerLocaleData } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     BrowserAnimationsModule
     
   ],
-  providers: [AuthService, ApiService, AuthGuard, LoginGuard],
+  providers: [AuthService, ApiService, AuthGuard, LoginGuard, { provide: LOCALE_ID, useValue: "fr" }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

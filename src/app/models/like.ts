@@ -2,8 +2,13 @@ import { User } from './user';
 
 export class Like {
     private id: number;
-    private user: User;
-    private likedAt: Date;
+    // private user: User;
+    private liked_at: Date;
+
+    constructor(like: any) {
+        this.id = like.id;
+        this.liked_at = like.liked_at;
+    }
 
 
 
@@ -17,19 +22,11 @@ export class Like {
 	}
 
     /**
-     * Getter $user
-     * @return {User}
-     */
-	public get $user(): User {
-		return this.user;
-	}
-
-    /**
-     * Getter $likedAt
+     * Getter $liked_at
      * @return {Date}
      */
-	public get $likedAt(): Date {
-		return this.likedAt;
+	public get $liked_at(): Date {
+		return this.liked_at;
 	}
 
     /**
@@ -40,20 +37,15 @@ export class Like {
 		this.id = value;
 	}
 
-    /**
-     * Setter $user
-     * @param {User} value
-     */
-	public set $user(value: User) {
-		this.user = value;
-	}
 
     /**
-     * Setter $likedAt
+     * Setter $liked_at
      * @param {Date} value
      */
-	public set $likedAt(value: Date) {
-		this.likedAt = value;
+	public set $liked_at(value: Date) {
+		this.liked_at = value;
 	}
+    
+
 
 }

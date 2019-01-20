@@ -11,11 +11,11 @@ export class Restaurant {
     private id: number;
     private name: string;
     private number: string;
-    private opensAt: Time;
-    private closesAt: Time;
+    private opens_at: Time;
+    private closes_at: Time;
     private enabled: boolean;
     private published: boolean;
-    private createdAt: Date;
+    private created_at: Date;
     private categories: Array<Category>;
     private image: Image;
     private likes: Array<Like>;
@@ -27,11 +27,75 @@ export class Restaurant {
     private menus: Array<Menu>;
 
 
+    constructor(restaurant: any) {
+        // Array initialization
+        this.categories = new Array<Category>();
+        this.likes = new Array<Like>();
+        this.dislikes = new Array<DisLike>();
+        this.menus = new Array<Menu>();
+
+        this.id = restaurant.id;
+        this.name = restaurant.name;
+        if (restaurant.number !== undefined) {
+            this.number = restaurant.number;
+        }
+
+        this.opens_at = restaurant.opens_at;
+        this.closes_at = restaurant.closes_at;
+
+        if (restaurant.enabled !== undefined) {
+            this.enabled = restaurant.enabled;
+        }
+        if (restaurant.published !== undefined) {
+            this.published = restaurant.published;
+        }
+        if (restaurant.created_at !== undefined) {
+            this.created_at = restaurant.created_at;
+        }
+
+        if (restaurant.categories !== undefined && restaurant.categories.length > 0) {
+            restaurant.categories.forEach(category => {
+                this.categories.push(new Category(category));
+            });
+        }
+        
+        if (restaurant.image !== undefined) {
+            this.image = new Image(restaurant.image);
+        }
+
+        if (restaurant.likes !== undefined && restaurant.likes.length > 0) {
+            restaurant.likes.forEach(like => {
+                this.likes.push(new Like(like));
+            });
+        }
+
+
+        if (restaurant.dislikes !== undefined && restaurant.dislikes.length > 0) {
+            restaurant.dislikes.forEach(dislike => {
+                this.dislikes.push(new DisLike(dislike));
+            });
+        }
+
+        if (restaurant.city !== undefined) {
+            this.city = new City(restaurant.city);
+        }
+
+        if (restaurant.address !== undefined) {
+            this.address = new Address(restaurant.address);
+        }
+
+        if (restaurant.menus !== undefined && restaurant.menus.length > 0) {
+            restaurant.menus.forEach(menu => {
+                this.menus.push(new Menu(menu));
+            });
+        }
+    }
     
 
     public addCategory(value: Category) {
         this.categories.push(value);
     }
+
 
 
     /**
@@ -59,19 +123,19 @@ export class Restaurant {
 	}
 
     /**
-     * Getter $opensAt
+     * Getter $opens_at
      * @return {Time}
      */
-	public get $opensAt(): Time {
-		return this.opensAt;
+	public get $opens_at(): Time {
+		return this.opens_at;
 	}
 
     /**
-     * Getter $closesAt
+     * Getter $closes_at
      * @return {Time}
      */
-	public get $closesAt(): Time {
-		return this.closesAt;
+	public get $closes_at(): Time {
+		return this.closes_at;
 	}
 
     /**
@@ -91,11 +155,11 @@ export class Restaurant {
 	}
 
     /**
-     * Getter $createdAt
+     * Getter $created_at
      * @return {Date}
      */
-	public get $createdAt(): Date {
-		return this.createdAt;
+	public get $created_at(): Date {
+		return this.created_at;
 	}
 
     /**
@@ -155,6 +219,14 @@ export class Restaurant {
 	}
 
     /**
+     * Setter $id
+     * @param {number} value
+     */
+	public set $id(value: number) {
+		this.id = value;
+	}
+
+    /**
      * Setter $name
      * @param {string} value
      */
@@ -171,19 +243,19 @@ export class Restaurant {
 	}
 
     /**
-     * Setter $opensAt
+     * Setter $opens_at
      * @param {Time} value
      */
-	public set $opensAt(value: Time) {
-		this.opensAt = value;
+	public set $opens_at(value: Time) {
+		this.opens_at = value;
 	}
 
     /**
-     * Setter $closesAt
+     * Setter $closes_at
      * @param {Time} value
      */
-	public set $closesAt(value: Time) {
-		this.closesAt = value;
+	public set $closes_at(value: Time) {
+		this.closes_at = value;
 	}
 
     /**
@@ -203,11 +275,11 @@ export class Restaurant {
 	}
 
     /**
-     * Setter $createdAt
+     * Setter $created_at
      * @param {Date} value
      */
-	public set $createdAt(value: Date) {
-		this.createdAt = value;
+	public set $created_at(value: Date) {
+		this.created_at = value;
 	}
 
     /**
@@ -265,5 +337,6 @@ export class Restaurant {
 	public set $menus(value: Array<Menu>) {
 		this.menus = value;
 	}
+   
 
 }

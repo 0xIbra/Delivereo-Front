@@ -5,10 +5,12 @@ export class Category {
     private name: string;
     private image: Image;
     
-    constructor(id: number, name: string, image: Image) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
+    constructor(category: any) {
+        this.id = category.id;
+        this.name = category.name;
+        if (category.image !== undefined) {
+            this.image = new Image(category.image);
+        }
     }
 
     /**

@@ -7,6 +7,12 @@ export class CartItem {
     private quantity: Number;
 
 
+    constructor(cartItem: any) {
+        this.id = cartItem.id;
+        this.menu = new Menu(cartItem.menu);
+        this.quantity = cartItem.quantity;
+    }
+
 
     /**
      * Getter $id

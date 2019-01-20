@@ -31,14 +31,32 @@ export class User {
         this.email = user.email;
         this.username = user.username;
         this.roles = user.roles;
-        this.image = user.image;
+
+        if (user.image !== undefined) {
+            this.image = user.image;
+        }
+
         this.gender = user.gender;
+
         this.addresses = user.addresses;
-        this.restaurant = user.restaurant;
-        // this.cart = user.cart;
-        this.orders = user.orders;
-        // this.created_at = user.created_at;
-        // this.social_links = user.social_links;
+
+        if (user.restaurant !== undefined) {
+            this.restaurant = user.restaurant;
+        }
+        
+        if (user.cart !== undefined) {
+            this.cart = user.cart;
+        }
+
+        if (user.orders !== undefined) {
+            this.orders = new Array<Order>();
+            user.orders.forEach(order => {
+                this.orders.push(new Order(order));
+            });
+        }
+        if (user.created_at !== undefined) {
+            this.created_at = user.created_at;
+        }
     }
 
     

@@ -7,6 +7,12 @@ export class OrderMenu {
     private quantity: number;
 
 
+    constructor(ordermenu: any) {
+        this.id = ordermenu.id;
+        this.menu = new Menu(ordermenu.menu);
+        this.quantity = ordermenu.quantity;
+    }
+
 
     /**
      * Getter $id

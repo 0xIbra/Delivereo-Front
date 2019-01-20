@@ -2,8 +2,14 @@ import { User } from './user';
 
 export class DisLike {
     private id: number;
-    private user: User;
-    private dislikedAt: Date;
+    // private user: User;
+    private disliked_at: Date;
+
+
+    constructor(dislike: any) {
+        this.id = dislike.id;
+        this.disliked_at = dislike.disliked_at;
+    }
 
 
 
@@ -16,20 +22,13 @@ export class DisLike {
 		return this.id;
 	}
 
-    /**
-     * Getter $user
-     * @return {User}
-     */
-	public get $user(): User {
-		return this.user;
-	}
 
     /**
-     * Getter $dislikedAt
+     * Getter $disliked_at
      * @return {Date}
      */
-	public get $dislikedAt(): Date {
-		return this.dislikedAt;
+	public get $disliked_at(): Date {
+		return this.disliked_at;
 	}
 
     /**
@@ -40,20 +39,15 @@ export class DisLike {
 		this.id = value;
 	}
 
-    /**
-     * Setter $user
-     * @param {User} value
-     */
-	public set $user(value: User) {
-		this.user = value;
-	}
 
     /**
-     * Setter $dislikedAt
+     * Setter $disliked_at
      * @param {Date} value
      */
-	public set $dislikedAt(value: Date) {
-		this.dislikedAt = value;
+	public set $disliked_at(value: Date) {
+		this.disliked_at = value;
 	}
+    
+
 
 }

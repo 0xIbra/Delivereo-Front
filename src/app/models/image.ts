@@ -4,10 +4,10 @@ export class Image {
     private url: string;
 
 
-    constructor(id: number, title: string, url: string) {
-        this.id = id;
-        this.title = title;
-        this.url = url;
+    constructor(image: any) {
+        this.id = image.id;
+        this.title = image.title;
+        this.url = image.url;
     }
 
     /**

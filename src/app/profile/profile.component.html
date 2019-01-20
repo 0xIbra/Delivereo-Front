@@ -76,7 +76,24 @@
                                         <div class="row-header">Commandes</div>
                                     </div>
                                 </div>
-                                <h6 style="margin: 0 !important;text-align: center;color: #999999;">Aucune commande</h6>
+                                <h6 *ngIf="auth.user.$orders.length <= 0" style="margin: 0 !important;text-align: center;color: #999999;">Aucune commande</h6>
+
+                                <div *ngIf="auth.user.$orders.length > 0">
+
+                                    <div *ngFor="let order of auth.user.$orders" class="col s12 m6 l4">
+                                        <div class="card basic modernize">
+                                            <a style="cursor: pointer;" class="address">
+                                                <div class="card-content">
+                                                    <span class="card-title">#{{order.order_number}}</span>
+                                                    <span class="address">{{ order.ordered_at | date: 'H:m \' - \' dd/MM/yyyy' }}</span>
+                                                    <span class="address status success">{{order.total_price | currency: 'EUR': true}}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -87,17 +104,36 @@
                                 <div class="col s12">
                                     <div class="flex align-center">
                                         <div class="row-header">Adresses</div>
-                                        <a href="/user/address/add" class="modal-trigger flex align-center add-btn">
+                                        <a (click)="openAddAddress()" class=" cursor-pointer flex align-center add-btn">
                                             <span class="material-icons">add</span>
                                         </a>
                                     </div>
                                 </div>
-                                <h6 style="margin: 0 !important;text-align: center;color: #999999;">Aucune adresse</h6>
+                                <h6 *ngIf="auth.user.$addresses.length <= 0" style="margin: 0 !important;text-align: center;color: #999999;">Aucune adresse</h6>
+
+                                <div *ngIf="auth.user.$addresses.length > 0">
+                                    
+                                    <div *ngFor="let address of auth.user.$addresses" class="col s12 m6 l4">
+                                        <div class="card basic modernize">
+                                            <a style="cursor: pointer;" class="modal-trigger address">
+                                                <div class="card-content">
+                                                    <span class="card-title">{{address.name}}</span>
+                                                    <span class="address">{{address.line1}}</span>
+                                                    <span *ngIf="address.line2 !== undefined" class="address">{{address.line2}}</span>
+                                                    <span *ngIf="address.line2 === undefined" class="address">-</span>
+                                                    <span class="address">{{address.city.name}}, {{address.city.zip_code}}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
-                    <div *ngIf="auth.user !== null && auth.user.checkRole('ROLE_OWNER')" class="card">
+                    <div *ngIf="auth.user !== null && auth.isOwner()" class="card">
                         <div class="card-content">
                             <div class="row">
                                 <div class="col s12">
@@ -107,11 +143,11 @@
                                 </div>
                                 <div *ngIf="auth.user.restaurant !== undefined" class="col s12 m6 l4">
                                     <div class="card basic modernize">
-                                        <a href="/restaurant/1">
+                                        <a style="cursor: pointer;">
                                             <div class="card-content">
-                                                <span class="card-title">{{auth.user.restaurant.name}}</span>
-                                                <span class="address">{{auth.user.restaurant.address.line1}}</span>
-                                                <span class="address">{{auth.user.restaurant.address.city.name}}</span>
+                                                <span class="card-title">{{auth.user.$restaurant.name}}</span>
+                                                <span class="address">{{auth.user.$restaurant.address.line1}}</span>
+                                                <span class="address">{{auth.user.$restaurant.address.city.name}}, {{auth.user.restaurant.address.city.zip_code}}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -124,6 +160,36 @@
             </div>
         </div>
 
+        <div class="modal" id="addAddressModal">
+            <div class="modal-content">
+                <h4 class="modal-title center">Nouveau adresse</h4>
+                <form style="padding: 20px 0 0 0 ;" (ngSubmit)="addressForm.form.valid && onAddressSubmit()" #addressForm="ngForm">
+                    <div class="input-field">
+                        <input type="text" class="modernize" #name="ngModel" required [(ngModel)]="address.$name" name="name" placeholder="Libellé">
+                        <div *ngIf="name.errors?.required && name.touched" class="alert danger">Le champ "Libellé" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #line1="ngModel" required [(ngModel)]="address.$line1" name="line1" placeholder="Adresse">
+                        <div *ngIf="line1.errors?.required && line1.touched" class="alert danger">Le champ "Adresse" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" [(ngModel)]="address.$line2" name="line2" placeholder="Complementaire">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #city="ngModel" required [(ngModel)]="address.$city.name" name="cityname" placeholder="Ville">
+                        <div *ngIf="city.errors?.required && city.touched" class="alert danger">Le champ "Ville" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #zip="ngModel" required minlength="5" maxlength="5" [(ngModel)]="address.$city.zip_code" name="zip_code" placeholder="Code postal">
+                        <div *ngIf="zip.errors?.required && zip.touched" class="alert danger">Le champ "Code postal" ne doit pas être vide.</div>
+                        <div *ngIf="zip.errors?.minlength || zip.errors?.maxlength" class="alert danger">Le champ "Code postal" doit être composé de 5 caractères.</div>
+                    </div>
+                    <div class="submit-wrapper">
+                        <input type="submit" value="Valider" class="modernize btn">
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="modal" id="addressmodal" tabindex="0">
             <div class="modal-content">
@@ -141,7 +207,7 @@
             </div>
         </div>
 
-        <div class="modal" id="socialmodal" tabindex="0">
+        <!-- <div class="modal" id="socialmodal" tabindex="0">
             <div class="modal-content">
                 <h4 class="modal-title">Ajouter un reseau</h4>
                 <br>
@@ -176,9 +242,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
 
-        <div class="modal" id="restaurantmodal" tabindex="0">
+        <div *ngIf="auth.isOwner()" class="modal" id="restaurantmodal" tabindex="0">
             <div class="modal-content">
                 <h4 class="modal-title">Titre</h4>
                 <br>

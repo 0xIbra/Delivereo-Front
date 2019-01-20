@@ -1,9 +1,16 @@
 export class City {
     private id: number;
     private name: string;
-    private zipCode: Number;
+    private zip_code: Number;
 
 
+    constructor(city: any) {
+        if (city.id !== undefined) {
+            this.id = city.id;
+        }
+        this.name = city.name;
+        this.zip_code = city.zip_code;
+    }
 
 
     /**
@@ -23,11 +30,11 @@ export class City {
 	}
 
     /**
-     * Getter $zipCode
+     * Getter $zip_code
      * @return {Number}
      */
-	public get $zipCode(): Number {
-		return this.zipCode;
+	public get $zip_code(): Number {
+		return this.zip_code;
 	}
 
     /**
@@ -47,11 +54,11 @@ export class City {
 	}
 
     /**
-     * Setter $zipCode
+     * Setter $zip_code
      * @param {Number} value
      */
-	public set $zipCode(value: Number) {
-		this.zipCode = value;
+	public set $zip_code(value: Number) {
+		this.zip_code = value;
 	}
-
+    
 }

@@ -6,6 +6,7 @@ import { Image } from '../models/image';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { Address } from '../models/address';
 
 
 @Injectable({
@@ -48,6 +49,17 @@ export class AuthService {
 
   
   constructor(private http: HttpClient, private router: Router) {}
+
+  deleteAddress(address: Address) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let params = new HttpParams().set('addressId', address.$id);
+    return this.http.delete(this.baseUrl+ 'api/auth/address/delete', { headers: headers, params: params });
+  }
+
+  addAddress(address: Address) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    return this.http.post(this.baseUrl+ 'api/auth/address/add', JSON.stringify(address), { headers: headers });
+  }
 
   editUser(user: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });

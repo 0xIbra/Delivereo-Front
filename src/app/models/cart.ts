@@ -6,6 +6,17 @@ export class Cart {
     private items: Array<CartItem>;
 
 
+    constructor(cart: any) {
+        this.items = new Array<CartItem>();
+        this.id = cart.id;
+        if (cart.items.length > 0) {
+            cart.items.forEach(item => {
+                this.items.push(new CartItem(item));
+            });
+        }
+    }
+
+
 
     /**
      * Getter $id

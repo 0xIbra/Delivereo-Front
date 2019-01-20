@@ -9,7 +9,18 @@ export class Menu {
     private price: number;
     private image: Image;
     private category: Category;
-    
+
+
+    constructor(menu: any) {
+        this.id = menu.id;
+        this.name = menu.name;
+        this.description = menu.description;
+        this.price = menu.price;
+        if (menu.image !== undefined) {
+            this.image = new Image(menu.image);
+        }
+        this.category = new Category(menu.category);
+    }    
 
 
     /**

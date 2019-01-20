@@ -25,10 +25,8 @@ export class HomeComponent implements OnInit {
       data => {
         let res: any = data;
         res.data.forEach(item => {
-          const image = new Image(item.image.id, item.image.title, item.image.url);
-          this.categories.push(new Category(item.id, item.name, image));
+          this.categories.push(new Category(item));
         });
-        // console.log(this.categories);
       },
       error => {
         console.log(error);

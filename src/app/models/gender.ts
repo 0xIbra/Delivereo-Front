@@ -3,9 +3,9 @@ export class Gender {
     private name: string;
 
 
-    constructor(id: number, name: string) {
-        this.id = id;
-        this.name = name;
+    constructor(gender: any) {
+        this.id = gender.id;
+        this.name = gender.name;
     }
 
 
