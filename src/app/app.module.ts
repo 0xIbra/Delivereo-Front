@@ -26,6 +26,8 @@ import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { registerLocaleData } from '@angular/common';
+import { PartnerComponent } from './partner/partner.component';
+import { PartnerApplicationComponent } from './partner-application/partner-application.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { registerLocaleData } from '@angular/common';
     RestaurantComponent,
     CartComponent,
     ChangePasswordComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    PartnerComponent,
+    PartnerApplicationComponent
   ],
   imports: [
     BrowserModule,

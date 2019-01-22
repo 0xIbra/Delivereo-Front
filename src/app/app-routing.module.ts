@@ -12,6 +12,8 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { CartComponent } from './cart/cart.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { PartnerComponent } from './partner/partner.component';
+import { PartnerApplicationComponent } from './partner-application/partner-application.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'restaurant/:id', component: RestaurantComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
-  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] }
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'partner', component: PartnerComponent  },
+  { path: 'partner/application', component: PartnerApplicationComponent, canActivate: [AuthGuard] }
 
 ];
 
