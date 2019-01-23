@@ -38,6 +38,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
 
   userFormSubmit() {
+    this.loader.showLoader('Mise à jour...');
     this.auth.editUser(this.user).subscribe(
       data => {
         let res: any = data;
@@ -51,6 +52,10 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         } else {
           console.log(err);
         }
+      },
+
+      () => {
+        this.loader.hideLoader();
       }
     );
   }
