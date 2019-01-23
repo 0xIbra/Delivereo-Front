@@ -60,6 +60,7 @@
 
               <div class="input-field modernize">
                 <select #gender="ngModel" [(ngModel)]="user.gender" required name="gender" class="modernize">
+                  <option value="" disabled selected>Choisissez votre sexe</option>
                   <option *ngFor="let gender of auth.genders" [ngValue]="gender">{{gender.name}}</option>
                 </select>
                 <div *ngIf="gender.errors?.required" class="alert danger">Le champ sexe est obligatoire.</div>

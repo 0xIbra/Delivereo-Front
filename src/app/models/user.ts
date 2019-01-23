@@ -64,11 +64,12 @@ export class User {
     
 
     public checkRole(role: string) {
-        return this.roles.includes(role);
+        if (this.roles === undefined) {
+            return false;
+        } else {
+            return this.roles.includes(role);
+        }
     }
-
-    
-
 
 
 

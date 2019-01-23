@@ -1,9 +1,9 @@
-$(window).ready(function (){
+$(document).ready(function (){
+    // $('select').formSelect();
     $('.sidenav.sidebar').sidenav({ edge: 'left' });
     $('ul[class^="sidenav"]:not(.sidebar)').sidenav({ edge: 'right' });
     $('.tabs').tabs();
-    // $('.modal').modal();
-    $('select').formSelect();
+    $('.modal').modal();
     $('.timepicker').timepicker({twelveHour: false});
     $('.dropdown-trigger').dropdown();
     $('.tooltip').tooltip();

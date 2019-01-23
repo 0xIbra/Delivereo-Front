@@ -9,6 +9,8 @@ export class LoginGuard implements CanActivate {
 
     canActivate() {
         if (this.auth.isLoggedIn()) {
+            M.toast({ html: 'Vous êtes déjà connectée' });
+            this.router.navigate(['/profile']);
             return false;
         }else {
             return true;

@@ -12,7 +12,7 @@ export class ChangePasswordComponent implements OnInit {
   newPassword: string;
   confirmPassword: string;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }

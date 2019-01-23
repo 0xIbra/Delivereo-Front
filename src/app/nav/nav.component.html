@@ -21,22 +21,29 @@
 
 
 <ul id="sidebar-nav" class="sidenav">
-  <li>
-  <div class="user-view">
+  <li *ngIf="auth.user !== null && auth.isLoggedIn()">
+    <div class="user-view">
       <div class="background">
-          <div class="background-overlay"></div>
-          <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540311324/businessman.jpg">
+        <div class="background-overlay"></div>
+        <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540311324/businessman.jpg">
       </div>
-                          <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1543858317/ibragim_830c25a85f02a29aa4c1584d10a7d6bd.jpg" alt="Photo de Ibragim" class="circle">
-                      <a href="/profile/"><span class="white-text name">Ibragim Abubakarov</span></a>
-      <a href="mailto:ibrahim.chechen64@gmail.com"><span class="white-text email">ibrahim.chechen64@gmail.com</span></a>
-  </div>
-</li>
-<li><a class="subheader">Membre</a></li>
+      <img *ngIf="auth.user !== null && auth.user.$image !== undefined && auth.user.$image !== null" src="{{auth.user.$image.$url}}" alt="Photo de {{auth.user.first_name}} {{auth.user.last_name}}" class="circle">
+      <img *ngIf="auth.user !== null &&auth.user.$image === undefined && auth.user.$gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png" alt="Default photo" class="circle">
+      <img *ngIf="auth.user !== null && auth.user.$image === undefined && auth.user.$gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png"
+                                    alt="Default photo" class="circle">
+      <a [routerLink]="['/profile']"><span class="white-text name">{{auth.user.first_name}} {{auth.user.last_name}}</span></a>
+      <a href="mailto:{{auth.user.email}}"><span class="white-text email">{{auth.user.email}}</span></a>
+    </div>
+  </li>
+  <li><a class="subheader">Membre</a></li>
 
-  <li><a href="/owner/dashboard" class="waves-effect"><i class="material-icons">dashboard</i>Tableau de bord</a></li>
+  <li *ngIf="auth.isOwner()"><a [routerLink]="['/owner/dashboard']" class="waves-effect"><i class="material-icons">dashboard</i>Tableau de bord</a></li>
+  
+  <li *ngIf="auth.isLoggedIn()"><a [routerLink]="['/cart']"><i class="material-icons">shopping_cart</i>Panier</a></li>
+  <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['/login']" class="waves-effect"><i class="material-icons">account_circle</i>Connexion</a></li>
+  <li *ngIf="!auth.isLoggedIn()"><a [routerLink]="['/register']" class="waves-effect"><i class="material-icons">format_align_left</i>Inscription</a></li>
 
 
-  <li><a href="/profile/" class="waves-effect"><i class="material-icons">account_circle</i>Mon compte</a></li>
-<li><a href="/logout" class="waves-effect"><i class="material-icons">power_settings_new</i>Déconnexion</a></li>
+  <li *ngIf="auth.isLoggedIn()"><a [routerLink]="['/profile']" class="waves-effect"><i class="material-icons">account_circle</i>Mon compte</a></li>
+  <li *ngIf="auth.isLoggedIn()"><a style="cursor: pointer;" (click)="auth.logout()" class="waves-effect"><i class="material-icons">power_settings_new</i>Déconnexion</a></li>
 </ul>

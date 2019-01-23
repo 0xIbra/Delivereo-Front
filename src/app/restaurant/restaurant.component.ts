@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -16,7 +17,11 @@ export class RestaurantComponent implements OnInit, AfterContentInit {
   modalMenu: Object;
   quantity: number = 1;
 
-  constructor(private auth: AuthService,private api: ApiService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private auth: AuthService, 
+    private api: ApiService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private loader: LoaderService) {}
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -33,6 +38,7 @@ export class RestaurantComponent implements OnInit, AfterContentInit {
   }
 
   getRestaurant(id: string) {
+    this.loader.showLoader();
     this.api.getRestaurantData(id)
           .subscribe(
             data => {
@@ -43,6 +49,10 @@ export class RestaurantComponent implements OnInit, AfterContentInit {
               console.log(err);
               M.toast({ html: err.error.data.message });
               this.router.navigate(['/']);
+            },
+
+            () => {
+              this.loader.hideLoader();
             }
           );
   }

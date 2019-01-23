@@ -4,6 +4,7 @@ import { Category } from '../models/category';
 import { Image } from '../models/image';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +18,11 @@ export class HomeComponent implements OnInit {
 
   cities: any[];
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router, private loader: LoaderService) { }
 
   ngOnInit() {
     this.categories = new Array<Category>();
+    this.loader.showLoader();
     this.api.getFavoriteCategories().subscribe(
       data => {
         let res: any = data;
@@ -30,6 +32,10 @@ export class HomeComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }, 
+
+      () => {
+        this.loader.hideLoader();
       }
     );
   }

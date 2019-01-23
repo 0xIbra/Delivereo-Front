@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { Address } from '../models/address';
+import { LoaderService } from './loader.service';
 
 
 @Injectable({
@@ -48,7 +49,7 @@ export class AuthService {
   cart: any;
 
   
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private loader: LoaderService) {}
 
   // deleteAddress(address: Address) {
   //   let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
@@ -93,16 +94,23 @@ export class AuthService {
    * 
    */
   loadCart() {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
-    this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
-      data => {
-        let res: any = data;
-        this.cart = res.data;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    if (this.cart === undefined || this.cart === null) {
+      this.loader.showLoader();
+      let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+      this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
+        data => {
+          let res: any = data;
+          this.cart = res.data;
+        },
+        err => {
+          console.log(err);
+        },
+
+        () => {
+          this.loader.hideLoader();
+        }
+      ); 
+    }
   }
   
 
@@ -200,10 +208,12 @@ export class AuthService {
    * it it sends an HTTP GET request to the back-end with JWT token to get the User which after completing it sets it to the global user variable.
    */
   loadUser() {
+    this.loader.showLoader();
     let user = JSON.parse(localStorage.getItem(this.userKey));
 
     if (user !== null) {
       this.user = new User(user);
+      this.loader.hideLoader();
     } else {
       this.http.get(this.accountEndpoint, { headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken()}) })
                     .subscribe(
@@ -215,6 +225,9 @@ export class AuthService {
                       },
                       err => {
                         console.log(err);
+                      },
+                      () => {
+                        this.loader.hideLoader();
                       }
                     );
     }

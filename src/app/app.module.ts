@@ -28,6 +28,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { registerLocaleData } from '@angular/common';
 import { PartnerComponent } from './partner/partner.component';
 import { PartnerApplicationComponent } from './partner-application/partner-application.component';
+import { LoaderService } from './services/loader.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,14 @@ import { PartnerApplicationComponent } from './partner-application/partner-appli
     BrowserAnimationsModule
     
   ],
-  providers: [AuthService, ApiService, AuthGuard, LoginGuard, { provide: LOCALE_ID, useValue: "fr" }],
+  providers: [
+    AuthService,
+    ApiService, 
+    AuthGuard, 
+    LoginGuard, 
+    { provide: LOCALE_ID, useValue: "fr" },
+    LoaderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

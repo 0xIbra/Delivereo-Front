@@ -9,7 +9,7 @@ import { Cart } from '../models/cart';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
     // this.cart = new Array<Object>();

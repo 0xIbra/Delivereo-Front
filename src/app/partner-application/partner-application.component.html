@@ -18,8 +18,8 @@
               <input type="text" #closesAt="ngModel" disabled [(ngModel)]="restaurant.closes_at" name="closes_at" class="timepicker modernize">
             </div>
             <div class="input-field modernize">
-              <select name="category" multiple #category="ngModel" [(ngModel)]="selectedCategories">
-                <option value="0">Choisissez vos categories</option>
+              <select (change)="log()" name="category" multiple #category="ngModel" [(ngModel)]="selectedCategories">
+                <option value="0" disabled selected>Choisissez vos categories</option>
                 <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
               </select>
               <!-- {{ form_widget(form.categories) }} -->

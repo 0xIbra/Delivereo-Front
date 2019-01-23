@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,14 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private loader: LoaderService) {}
 
   ngOnInit() {
     
   }
 
   onSubmit() {
+    this.loader.showLoader('Connexion');
     const payload = { 
       username: this.username, 
       password: this.password, 
@@ -42,6 +44,10 @@ export class LoginComponent implements OnInit {
                 err => {
                   // console.log(err);
                   M.toast({ html: err.error.message });
+                },
+
+                () => {
+                  this.loader.hideLoader();
                 }
               );
   }

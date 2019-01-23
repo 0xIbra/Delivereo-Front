@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-city',
@@ -16,7 +17,7 @@ export class CityComponent implements OnInit {
 
   cityId: string;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(private api: ApiService, private route: ActivatedRoute, private loader: LoaderService) {}
 
   ngOnInit() {
     this.checklist = [];
@@ -34,6 +35,7 @@ export class CityComponent implements OnInit {
   }
 
   getCity() {
+    this.loader.showLoader();
     this.api.getCityData(this.cityId)
             .subscribe(
               data => {
@@ -42,6 +44,10 @@ export class CityComponent implements OnInit {
               },
               err => {
                 console.log(err);
+              },
+
+              () => {
+                this.loader.hideLoader();
               }
             );
   }
@@ -49,6 +55,7 @@ export class CityComponent implements OnInit {
 
 
   getRestaurants(categories: string = null) {
+    this.loader.showLoader();
     this.api.getRestaurantsByCity(this.cityId, categories)
             .subscribe(
               data => {
@@ -57,11 +64,16 @@ export class CityComponent implements OnInit {
               }, 
               err => {
                 console.log(err);
+              },
+
+              () => {
+                this.loader.hideLoader();
               }
             );
   }
 
   initCategories() {
+    this.loader.showLoader();
     this.api.getCategories()
             .subscribe(
               data => {
@@ -70,6 +82,9 @@ export class CityComponent implements OnInit {
               },
               err => {
                 console.log(err);
+              }, 
+              () => {
+                this.loader.hideLoader();
               }
             );
   }

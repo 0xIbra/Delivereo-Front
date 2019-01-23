@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-cities',
@@ -11,7 +12,7 @@ export class CitiesComponent implements OnInit {
   zip: string;
   cities: any[];
 
-  constructor(private route: ActivatedRoute, private api: ApiService) { }
+  constructor(private route: ActivatedRoute, private api: ApiService, private loader: LoaderService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -24,6 +25,7 @@ export class CitiesComponent implements OnInit {
   }
 
   getCities() {
+    this.loader.showLoader();
     this.api.searchCity(this.zip)
             .subscribe(
               data => {
@@ -32,6 +34,10 @@ export class CitiesComponent implements OnInit {
               },
               err => {
                 console.log(err);
+              },
+
+              () => {
+                this.loader.hideLoader();
               }
             );
   }

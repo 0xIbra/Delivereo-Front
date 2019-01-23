@@ -1,35 +1,39 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ApiService } from '../services/api.service';
 import { Restaurant } from '../models/restaurant';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-partner-application',
   templateUrl: './partner-application.component.html',
   styleUrls: ['./partner-application.component.scss']
 })
-export class PartnerApplicationComponent implements OnInit, AfterContentInit {
+export class PartnerApplicationComponent implements OnInit, AfterViewInit {
   categories: any[];
   restaurant: Restaurant;
   selectedCategories: any[];
 
-  constructor(private auth: AuthService, private api: ApiService) { }
+  constructor(private auth: AuthService, private api: ApiService, private loader: LoaderService) {}
 
   ngOnInit() {
-    this.getCategories();
     this.restaurant = new Restaurant({});
     this.selectedCategories = new Array<any>();
+    this.getCategories();
   }
 
-  ngAfterContentInit() {
-    this.initSelect();
+  ngAfterViewInit() {
+    this.initForm();
   }
 
-  initSelect() {
-    M.AutoInit();
-    let elems = document.querySelectorAll('select');
-    let instances = M.FormSelect.init(elems);
-    console.log(instances);
+  initForm() {
+    this.loader.showLoader('Initialisation...');
+    $(document).ready(() => {
+      setTimeout(() => {
+        $('select').formSelect();
+        this.loader.hideLoader();
+      }, 1000);
+    });
   }
 
   getCategories() {
@@ -45,6 +49,10 @@ export class PartnerApplicationComponent implements OnInit, AfterContentInit {
 
   onSubmit() {
 
+  }
+
+  log() {
+    console.log(this.restaurant);
   }
 
 }

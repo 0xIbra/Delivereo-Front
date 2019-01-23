@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
       this.user = this.auth.user;
     }
     this.address = new Address({});
-    this.address.$city = new City({ name: 'name', zip_code: '00000' });
+    this.address.$city = new City({ name: '', zip_code: '' });
     M.AutoInit();
   }
 

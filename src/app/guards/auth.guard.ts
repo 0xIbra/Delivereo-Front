@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
             return true;
         }else {
             this.router.navigate(['login']);
+            M.toast({ html: 'Connectez-vous pour accéder à cete page' });
             return false;
         }
     }
