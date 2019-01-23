@@ -14,6 +14,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PartnerComponent } from './partner/partner.component';
 import { PartnerApplicationComponent } from './partner-application/partner-application.component';
+import { PartnerGuard } from './guards/partner.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'partner', component: PartnerComponent  },
-  { path: 'partner/application', component: PartnerApplicationComponent, canActivate: [AuthGuard] }
+  { path: 'partner/application', component: PartnerApplicationComponent, canActivate: [AuthGuard, PartnerGuard] }
 
 ];
 

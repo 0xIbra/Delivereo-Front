@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../models/user';
 import { Address } from '../models/address';
 import { City } from '../models/city';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,9 +15,13 @@ export class ProfileComponent implements OnInit {
   address: Address;
   city: Object;
 
-  modal: any;
+  private modal: any;
+  private editModal: any;
 
-  constructor(public auth: AuthService) { }
+  private showingAddress: any;
+  editAddress: any;
+
+  constructor(public auth: AuthService, private loader: LoaderService) { }
 
   ngOnInit() {
     if (this.auth.user === null) {
@@ -27,6 +32,8 @@ export class ProfileComponent implements OnInit {
     }
     this.address = new Address({});
     this.address.$city = new City({ name: '', zip_code: '' });
+    this.editAddress = {};
+    this.editAddress.city = { name: '', zip_code: '' };
     M.AutoInit();
   }
 
@@ -38,6 +45,49 @@ export class ProfileComponent implements OnInit {
   closeAddAddress() {
     this.modal = M.Modal.init(document.getElementById('addAddressModal'));
     this.modal.close();
+  }
+
+  showAddress(address: any) {
+    this.showingAddress = address;
+    let modal = M.Modal.init(document.getElementById('addressModal'));
+    this.initAddressModalData(address);
+    modal.open();
+  }
+
+  openEditAddressModal() {
+    this.editAddress = this.showingAddress;
+    let modal = M.Modal.init(document.getElementById('editAddressModal'));
+    modal.open();
+  }
+
+  initAddressModalData(address: any) {
+    document.querySelector('#addressModal .modal-title').innerHTML = address.name;
+    document.querySelector('#addressModal #address').innerHTML = address.line1;
+    document.querySelector('#addressModal #line2').innerHTML = address.line2;
+    document.querySelector('#addressModal #city').innerHTML = address.city.name + ', ' + address.city.zip_code;
+  }
+
+  deleteAddress() {
+    this.loader.showLoader();
+    this.auth.deleteAddress(this.showingAddress).subscribe(
+      (res: any) => {
+        M.toast({ html: res.data.message });
+        this.auth.reloadUser();
+      },
+      err => {
+        if (err.error.data.message !== undefined) {
+          M.toast({ html: err.error.data.message });
+        } else {
+          console.log(err);
+        }
+      },
+
+      () => {
+        this.loader.hideLoader();
+        let modal = M.Modal.getInstance(document.getElementById('addressModal'));
+        modal.close();
+      }
+    );
   }
 
   onAddressSubmit() {
@@ -56,6 +106,28 @@ export class ProfileComponent implements OnInit {
         } else {
           console.log(err);
         }
+      }
+    );
+  }
+
+  onAddressEdit() {
+    let modal = M.Modal.init(document.getElementById('editAddressModal'));
+    modal.close();
+    this.loader.showLoader();
+    this.auth.editAddress(this.editAddress).subscribe(
+      (res: any) => {
+        M.toast({ html: res.data.message });
+      },
+      err => {
+        if (err.error.data.message !== undefined) {
+          M.toast({ html: err.error.data.message });
+        } else {
+          console.log(err);
+        }
+      },
+
+      () => {
+        this.loader.hideLoader();
       }
     );
   }

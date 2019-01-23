@@ -29,6 +29,7 @@ import { registerLocaleData } from '@angular/common';
 import { PartnerComponent } from './partner/partner.component';
 import { PartnerApplicationComponent } from './partner-application/partner-application.component';
 import { LoaderService } from './services/loader.service';
+import { PartnerGuard } from './guards/partner.guard';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { LoaderService } from './services/loader.service';
     AuthGuard, 
     LoginGuard, 
     { provide: LOCALE_ID, useValue: "fr" },
-    LoaderService
+    LoaderService,
+    PartnerGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -6,16 +6,16 @@
           <h3 class="heading">Ouverture restaurant</h3>
           <form (ngSubmit)="form.form.valid && onSubmit()" #form="ngForm">
             <div class="input-field">
-              <input type="text" #name="ngModel" [(ngModel)]="restaurant.name" name="name" class="modernize" placeholder="Nom du restaurant">
+              <input type="text" #name="ngModel" [(ngModel)]="restaurant.$name" name="name" class="modernize" placeholder="Nom du restaurant">
             </div>
             <div class="input-field">
-              <input type="text" #number="ngModel" [(ngModel)]="restaurant.number" name="number" class="modernize" placeholder="Numéro de téléphone">
+              <input type="text" #number="ngModel" [(ngModel)]="restaurant.$number" name="number" class="modernize" placeholder="Numéro de téléphone">
             </div>
             <div class="input-field modernize">
-              <input type="text" #opensAt="ngModel" disabled [(ngModel)]="restaurant.opens_at" name="opens_at" class="timepicker modernize" placeholder="Ouverture">
+              <input type="text" #opensAt="ngModel" disabled [(ngModel)]="restaurant.$opens_at" name="opens_at" class="timepicker modernize" placeholder="Ouverture">
             </div>
             <div class="input-field modernize">
-              <input type="text" #closesAt="ngModel" disabled [(ngModel)]="restaurant.closes_at" name="closes_at" class="timepicker modernize">
+              <input type="text" #closesAt="ngModel" disabled [(ngModel)]="restaurant.$closes_at" name="closes_at" class="timepicker modernize">
             </div>
             <div class="input-field modernize">
               <select (change)="log()" name="category" multiple #category="ngModel" [(ngModel)]="selectedCategories">

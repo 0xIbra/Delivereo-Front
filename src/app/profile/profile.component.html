@@ -114,8 +114,8 @@
                                 <div *ngIf="auth.user.$addresses.length > 0">
                                     
                                     <div *ngFor="let address of auth.user.$addresses" class="col s12 m6 l4">
-                                        <div class="card basic modernize">
-                                            <a style="cursor: pointer;" class="modal-trigger address">
+                                        <div class="card basic modernize" (click)="showAddress(address)" >
+                                            <a style="cursor: pointer;" class="address">
                                                 <div class="card-content">
                                                     <span class="card-title">{{address.name}}</span>
                                                     <span class="address">{{address.line1}}</span>
@@ -160,6 +160,37 @@
             </div>
         </div>
 
+        <div class="modal" id="editAddressModal">
+            <div class="modal-content">
+                <h4 class="modal-title center">Modification</h4>
+                <form (ngSubmit)="addressEditForm.form.valid && onAddressEdit()" #addressEditForm="ngForm">
+                    <div class="input-field">
+                        <input type="text" class="modernize" #test="ngModel" required [(ngModel)]="editAddress.name" name="name" placeholder="Libellé">
+                        <div *ngIf="test.errors?.required && test.touched" class="alert danger">Le champ "Libellé" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #line1="ngModel" required [(ngModel)]="editAddress.line1" name="line1" placeholder="Adresse">
+                        <div *ngIf="line1.errors?.required && line1.touched" class="alert danger">Le champ "Adresse" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" [(ngModel)]="editAddress.line2" name="line2" placeholder="Complementaire">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #city="ngModel" required [(ngModel)]="editAddress.city.name" name="cityname" placeholder="Ville">
+                        <div *ngIf="city.errors?.required && city.touched" class="alert danger">Le champ "Ville" ne doit pas être vide.</div>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" class="modernize" #zip="ngModel" required minlength="5" maxlength="5" [(ngModel)]="editAddress.city.zip_code" name="zip_code" placeholder="Code postal">
+                        <div *ngIf="zip.errors?.required && zip.touched" class="alert danger">Le champ "Code postal" ne doit pas être vide.</div>
+                        <div *ngIf="zip.errors?.minlength || zip.errors?.maxlength" class="alert danger">Le champ "Code postal" doit être composé de 5 caractères.</div>
+                    </div>
+                    <div class="submit-wrapper">
+                        <input type="submit" value="Mettre à jour" class="modernize btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="modal" id="addAddressModal">
             <div class="modal-content">
                 <h4 class="modal-title center">Nouveau adresse</h4>
@@ -191,7 +222,7 @@
             </div>
         </div>
 
-        <div class="modal" id="addressmodal" tabindex="0">
+        <div class="modal" id="addressModal">
             <div class="modal-content">
                 <h4 class="modal-title">Titre</h4>
                 <br>
@@ -202,8 +233,8 @@
                 <span class="address" id="city">Ville</span>
             </div>
             <div class="modal-footer">
-                <a href="" class="waves-effect btn-flat red" id="deletebtn">Supprimer</a>
-                <a href="#" class="waves-effect btn-flat" id="editbtn">Modifier</a>
+                <a (click)="deleteAddress()" class="waves-effect btn-flat red" id="deletebtn">Supprimer</a>
+                <a (click)="openEditAddressModal()" class="modal-close waves-effect btn-flat" id="editbtn">Modifier</a>
             </div>
         </div>
 
@@ -255,8 +286,8 @@
                 <span class="address" id="city">Ville</span>
             </div>
             <div class="modal-footer">
-                <a href="" class="waves-effect btn-flat red" id="deletebtn">Supprimer</a>
-                <a href="#" class="waves-effect btn-flat" id="editbtn">Modifier</a>
+                <a  class="waves-effect btn-flat red modal-close" id="deletebtn">Supprimer</a>
+                <a  class="waves-effect btn-flat" id="editbtn">Modifier</a>
             </div>
         </div>
 

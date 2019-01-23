@@ -51,11 +51,21 @@ export class AuthService {
   
   constructor(private http: HttpClient, private router: Router, private loader: LoaderService) {}
 
-  // deleteAddress(address: Address) {
-  //   let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
-  //   let params = new HttpParams().set('addressId', address.$id+"");
-  //   return this.http.delete(this.baseUrl+ 'api/auth/address/delete', { headers: headers, params: params });
-  // }
+
+  editAddress(address: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` });
+    return this.http.put(this.baseUrl + 'api/auth/address/edit', JSON.stringify(address), { headers: headers });
+  }
+
+  deleteAddress(address: any) {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let params = new HttpParams().set('addressId', address.id);
+    const options = {
+      headers: headers,
+      body: params
+    };
+    return this.http.delete(this.baseUrl+ 'api/auth/address/delete', options);
+  }
 
   addAddress(address: Address) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
