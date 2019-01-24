@@ -12,7 +12,7 @@ export class CheckoutComponent implements OnInit {
 
   selectedAddress: any;
 
-  constructor(private auth: AuthService, private router: Router, private loader: LoaderService) { }
+  constructor(public auth: AuthService, private router: Router, private loader: LoaderService) { }
 
   ngOnInit() {
   }

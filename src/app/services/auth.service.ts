@@ -307,7 +307,7 @@ export class AuthService {
    * @returns boolean
    */
   isAdmin() {
-    if (this.isLoggedIn()) {
+    if (this.isLoggedIn() && this.user !== null) {
       return this.user.$roles.includes('ROLE_ADMIN');
     } else {
       return false;
@@ -320,7 +320,7 @@ export class AuthService {
    * @returns boolean
    */
   isOwner() {
-    if (this.isLoggedIn()) {
+    if (this.isLoggedIn() && this.user !== null) {
       return this.user.$roles.includes('ROLE_OWNER') && this.user.$restaurant !== undefined;
     } else {
       return false;
