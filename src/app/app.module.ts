@@ -30,6 +30,8 @@ import { PartnerComponent } from './partner/partner.component';
 import { PartnerApplicationComponent } from './partner-application/partner-application.component';
 import { LoaderService } from './services/loader.service';
 import { PartnerGuard } from './guards/partner.guard';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutGuard } from './guards/checkout.guard';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { PartnerGuard } from './guards/partner.guard';
     ChangePasswordComponent,
     EditProfileComponent,
     PartnerComponent,
-    PartnerApplicationComponent
+    PartnerApplicationComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { PartnerGuard } from './guards/partner.guard';
     LoginGuard, 
     { provide: LOCALE_ID, useValue: "fr" },
     LoaderService,
-    PartnerGuard
+    PartnerGuard,
+    CheckoutGuard
   ],
   bootstrap: [AppComponent]
 })

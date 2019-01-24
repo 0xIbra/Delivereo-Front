@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://back.delivereo/'
+  baseUrl: 'http://back.delivereo/',
+  stripeKey: 'pk_test_kCM2l3PNoJzLSfI5T0lFNssE'
 };
 
 /*

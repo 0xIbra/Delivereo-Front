@@ -104,23 +104,21 @@ export class AuthService {
    * 
    */
   loadCart() {
-    if (this.cart === undefined || this.cart === null) {
-      this.loader.showLoader();
-      let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
-      this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
-        data => {
-          let res: any = data;
-          this.cart = res.data;
-        },
-        err => {
-          console.log(err);
-        },
+    this.loader.showLoader();
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
+      data => {
+        let res: any = data;
+        this.cart = res.data;
+      },
+      err => {
+        console.log(err);
+      },
 
-        () => {
-          this.loader.hideLoader();
-        }
-      ); 
-    }
+      () => {
+        this.loader.hideLoader();
+      }
+    ); 
   }
   
 
