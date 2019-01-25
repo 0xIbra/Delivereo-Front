@@ -105,10 +105,10 @@ export class AuthService {
    */
   loadCart() {
     this.loader.showLoader();
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
     this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
-      data => {
-        let res: any = data;
+      (res: any) => {
+        console.log(res);
         this.cart = res.data;
       },
       err => {

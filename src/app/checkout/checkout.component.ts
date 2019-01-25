@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
+import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +16,10 @@ export class CheckoutComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router, private loader: LoaderService) { }
 
   ngOnInit() {
+  }
+
+  getPublishableKey() {
+    return environment.stripeKey;
   }
 
 
