@@ -47,10 +47,17 @@ export class AuthService {
    */
   user: User = null;
   cart: any;
+  orderComplete: boolean = false;
 
   
   constructor(private http: HttpClient, private router: Router, private loader: LoaderService) {}
 
+
+  buy(payload: any) {
+    payload.cartId = this.cart.id;
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` });
+    return this.http.post(this.baseUrl + 'api/auth/cart/checkout', JSON.stringify(payload), { headers: headers });
+  }
 
   editAddress(address: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` });
@@ -108,7 +115,6 @@ export class AuthService {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
     this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
       (res: any) => {
-        console.log(res);
         this.cart = res.data;
       },
       err => {
@@ -129,7 +135,6 @@ export class AuthService {
       data => {
         let res: any = data;
         M.toast({ html: res.data.message });
-        console.log(data);
       },
       err => {
         console.log(err);
@@ -227,7 +232,6 @@ export class AuthService {
                     .subscribe(
                       data => {
                         let res: any = data;
-                        console.log(res);
                         this.user = new User(res.data);
                         this.storeUser(this.user);
                       },

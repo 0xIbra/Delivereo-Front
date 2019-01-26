@@ -1,2 +1,10 @@
 @import '../cart/cart.component.scss';
 @import '../../assets/css/checkout.css';
+
+.stripe-btn[disabled]{
+    background: #ccc !important;
+}
+
+#ccform.active {
+    margin-bottom: 20px;
+}

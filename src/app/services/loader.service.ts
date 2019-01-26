@@ -7,7 +7,7 @@ export class LoaderService implements AfterContentInit {
   private loader: any;
   private loaderTitle: any;
 
-  private isLoading: boolean = true;
+  isLoading: boolean = true;
 
   constructor() {}
 

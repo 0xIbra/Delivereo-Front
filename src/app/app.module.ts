@@ -32,6 +32,8 @@ import { LoaderService } from './services/loader.service';
 import { PartnerGuard } from './guards/partner.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutGuard } from './guards/checkout.guard';
+import { CheckoutCompleteComponent } from './checkout-complete/checkout-complete.component';
+import { CompleteGuard } from './guards/complete.guard';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { CheckoutGuard } from './guards/checkout.guard';
     EditProfileComponent,
     PartnerComponent,
     PartnerApplicationComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CheckoutCompleteComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { CheckoutGuard } from './guards/checkout.guard';
     { provide: LOCALE_ID, useValue: "fr" },
     LoaderService,
     PartnerGuard,
-    CheckoutGuard
+    CheckoutGuard,
+    CompleteGuard
   ],
   bootstrap: [AppComponent]
 })

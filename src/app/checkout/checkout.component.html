@@ -8,11 +8,12 @@
       <span class="step complete">Terminée</span>
     </div>
     <div class="row">
+
+      <form (ngSubmit)="onSubmit($event)" #paymentForm="ngForm" id="payment-form">
+
       <div class="col s12 m12 l7">
         <div class="card">
           <div class="card-content">
-
-            <form name="checkout_form" method="post" id="payment-form">
 
               <div class="row">
                 <div class="col s12">
@@ -46,23 +47,26 @@
                   <div class="radio-card">
                     <p class="radio modernize">
                       <label>
-                        <input type="radio" [checked]="choseAddress(address)" name="address_{{address.id}}" required="required" class="address-radio-btn with-gap" >
+                        <input type="radio" id="deliveryAddress-{{address.id}}" (change)="chooseAddress(address)" required
+                        name="deliveryAddress" class="address-radio-btn with-gap" >
                         <span></span>
                       </label>
                     </p>
                     <div class="card radio modernize">
-                      <div class="card-content">
-                        <span class="card-title"><label for="address_{{address.id}}" class="required">{{address.name}}</label></span>
-                        <span class="address">{{address.line1}}</span>
-                        <span *ngIf="address.line2 !== undefined" class="address">{{address.line2}}</span>
-                        <span class="address">{{address.city.name}}, {{address.city.zip_code}}</span>
-                      </div>
+                      <label for="deliveryAddress-{{address.id}}">
+                          <div class="card-content">
+                              <span class="card-title"><label for="deliveryAddress-{{address.id}}">{{address.name}}</label></span>
+                              <span class="address">{{address.line1}}</span>
+                              <span *ngIf="address.line2 !== undefined" class="address">{{address.line2}}</span>
+                              <span class="address">{{address.city.name}}, {{address.city.zip_code}}</span>
+                            </div>
+                      </label>
                     </div>
                   </div>
                 </div>
 
               </div>
-            </form>
+            
           </div>
         </div>
       </div>
@@ -82,50 +86,42 @@
             </div>
             <br>
 
-            <div class="flex align-center">
+            <div *ngFor="let payment of paymentMethods" class="flex align-center">
               <p class="radio modernize">
                 <label>
-                  <input type="radio" id="checkout_form_paymentMethod_1" name="checkout_form[paymentMethod]" required="required"
-                    class="with-gap" value="1">
-                  <span><label for="checkout_form_paymentMethod_1" class="required">Paiement à la livraison</label></span>
+                  <input type="radio" (change)="choosePayment(payment)" id="payment-method-{{payment.id}}" required name="paymentMethod" class="with-gap" [value]="payment">
+                  <span><label for="payment-method-{{payment.id}}">{{payment.name}}</label></span>
                 </label>
               </p>
-              <i style="font-size: 15pt" class="material-icons tooltip" data-position="right" data-tooltip="Payer quand c'est livré">info_outline</i>
+            
+              <i *ngIf="payment.id === 1" style="font-size: 15pt" class="material-icons tooltip" data-position="right" data-tooltip="Payer quand c'est livré">info_outline</i>
+              
+              <img *ngIf="payment.id === 2" src="../../assets/img/creditcard/visa.svg" width="30" alt="Visa">
+              <img *ngIf="payment.id === 2" src="../../assets/img/creditcard/mastercard.svg" width="30" alt="MasterCard">
+              <img *ngIf="payment.id === 2" src="../../assets/img/creditcard/amex.svg" width="30" alt="American Express">
+            
             </div>
 
-            <div class="flex align-center credit-card-icons">
-              <p class="radio modernize">
-                <label>
-                  <input type="radio" id="checkout_form_paymentMethod_2" name="checkout_form[paymentMethod]" required="required"
-                    class="with-gap credit-card-method" value="2">
-                  <span><label for="checkout_form_paymentMethod_2" class="required">Carte bancaire</label></span>
-                </label>
-              </p>
-              <img src="../../assets/img/creditcard/visa.svg" width="30" alt="Visa">
-              <img src="../../assets/img/creditcard/mastercard.svg" width="30" alt="MasterCard">
-              <img src="../../assets/img/creditcard/amex.svg" width="30" alt="American Express">
-            </div>
-
-            <div class="credit-card-form">
+            <div id="ccform" class="credit-card-form">
               <span style="font-size: 11pt;color: #888888;font-weight: 500">Utilisez <b>4000 0000 0000 0077</b> si vous
                 voulez commander</span>
               
               <div style="padding: 10px 0 !important;">
-                <div id="card-element" class="StripeElement StripeElement--empty">
+                <div id="card-element">
                   
                 </div>
-
               </div>
 
-              <div id="card-errors" role="alert"></div>
+              <div style="margin-bottom: 20px;" id="card-errors" role="alert"></div>
             </div>
 
             <div class="input-field submit-wrapper">
-              <button type="submit" id="checkout_form_pay" name="checkout_form[pay]" class="stripe-btn">Commander</button>
+              <button type="submit" id="pay" name="checkout_form[pay]"  class="stripe-btn">Commander</button>
             </div>
           </div>
         </div>
       </div>
+     </form>
     </div>
   </div>
 </div>

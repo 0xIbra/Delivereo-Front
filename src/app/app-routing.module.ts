@@ -17,6 +17,8 @@ import { PartnerApplicationComponent } from './partner-application/partner-appli
 import { PartnerGuard } from './guards/partner.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutGuard } from './guards/checkout.guard';
+import { CheckoutCompleteComponent } from './checkout-complete/checkout-complete.component';
+import { CompleteGuard } from './guards/complete.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,7 +33,8 @@ const routes: Routes = [
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'partner', component: PartnerComponent  },
   { path: 'partner/application', component: PartnerApplicationComponent, canActivate: [AuthGuard, PartnerGuard] },
-  { path: 'cart/checkout', component: CheckoutComponent, canActivate: [AuthGuard, CheckoutGuard] }
+  { path: 'cart/checkout', component: CheckoutComponent, canActivate: [AuthGuard, CheckoutGuard] },
+  { path: 'cart/checkout/complete', component: CheckoutCompleteComponent, canActivate: [AuthGuard, CompleteGuard] }
 
 ];
 
