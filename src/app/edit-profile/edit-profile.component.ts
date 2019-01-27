@@ -47,6 +47,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/profile']);
       },
       err => {
+        this.loader.hideLoader();
         if (err.error.data.message !== undefined) {
           M.toast({ html: err.error.data.message });
         } else {
@@ -70,6 +71,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         this.auth.reloadUser();
       },
       err => {
+        this.loader.hideLoader();
         if (err.error.data.message !== undefined) {
           M.toast({ html: err.error.data.message });
         } else {
@@ -95,6 +97,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
           this.auth.reloadUser();
         },
         err => {
+          this.loader.hideLoader();
           if (err.error.data.message !== undefined) {
             M.toast({ html: err.error.data.message });
           } else {

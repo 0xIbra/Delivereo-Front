@@ -1,0 +1,180 @@
+<div *ngIf="(auth.user !== null || auth.user !== undefined) && (data !== undefined)" class="page-wrapper">
+        <div class="container-full">
+            <div class="row">
+                <div class="col s12 l2 no-padding">
+                  
+                    <div class="sidebar hide-on-med-and-down fixed">
+                        <li class="sidebar-profile-link">
+                            <a [routerLink]="['profile']" class="waves-effect">
+                                <div class="image-container">
+                                  
+                                  <img *ngIf="auth.user.$image !== undefined" src="{{ auth.user.$image.url }}" alt="Photo de {{ auth.user.$first_name }}" width="40" height="40" class="circle">
+                                  
+                                  <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png" alt="Default photo" width="40" height="40" class="circle">
+                                  
+                                  <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png" alt="Default photo" width="40" height="40" class="circle">
+                                
+                                </div>
+                                <div *ngIf="auth.user !== undefined" class="user-info">{{ auth.user.$first_name }} {{ auth.user.$last_name }}</div>
+                            </a>
+                        </li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+                    
+                    </div>
+                    
+                    
+                    <ul id="dashboardSidebar" class="sidenav sidebar">
+                        <li>
+                            <div class="user-view">
+                                <div class="background">
+                                    <div class="background-overlay"></div>
+                                    <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540311324/businessman.jpg">
+                                </div>
+                                  
+                                <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 1" class="circle" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png" alt="Default photo">
+                                  
+                                <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 2" class="circle" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png" alt="Default photo">
+                                  
+                                <img *ngIf="auth.user.$image !== undefined" src="{{ auth.user.$image.url }}" alt="Photo de {{ auth.user.$first_name }}" class="circle">
+                                
+                                <a *ngIf="auth.user !== undefined" [routerLink]="['/profile']"><span class="white-text name">{{ auth.user.$first_name }} {{ auth.user.$last_name }}</span></a>
+                                <a *ngIf="auth.user !== undefined" href="mailto:{{ auth.user.$email }}"><span class="white-text email">{{ auth.user.$email }}</span></a>
+                            </div>
+                        </li>
+                    
+                        <li><a class="subheader">Admin</a></li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+                        <li><a href="" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+                    </ul>
+                    
+                    <div class="sidebar-btn-container">
+                        <a href="#dashboardSidebar" class="sidebar-btn left sidenav-trigger">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col s12 l10">
+                    <div class="row">
+                        <div class="col s12 m6 l3">
+                            <div class="card stats-mini-card">
+                                <div class="card-logo green-color">
+                                    <i class="material-icons">euro_symbol</i>
+                                </div>
+                                <div class="stats-card-content">
+                                    <span *ngIf="data.revenue !== undefined" class="value">{{data.revenue| currency: 'EUR': true}}</span>
+                                    <span class="type">Revenus</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 l3">
+                            <div class="card stats-mini-card">
+                                <div class="card-logo purple-color">
+                                    <i class="material-icons">shopping_cart</i>
+                                </div>
+                                <div class="stats-card-content">
+                                    <span *ngIf="data.recentOrders !== undefined" class="value">{{data.totalOrders}}</span>
+                                    <span class="type">Commandes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 l3">
+                            <div class="card stats-mini-card">
+                                <div class="card-logo blue-color">
+                                    <i class="material-icons">thumbs_up_down</i>
+                                </div>
+                                <div class="stats-card-content">
+                                    <span class="value">
+                                        <span style="color: #5cb85c;font-weight: bold;display: inline;">{{ data.likes.length }}</span>
+                                        -
+                                        <span style="color: #d9534f;font-weight: bold;display: inline;">{{ data.dislikes.length }}</span>
+                                    </span>
+                                    <span class="type">Coeurs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 l3">
+                            <div class="card stats-mini-card">
+                                <div class="card-logo orange-color">
+                                    <i class="material-icons">people</i>
+                                </div>
+                                <div class="stats-card-content">
+                                    <span *ngIf="data.clients !== undefined" class="value">{{data.clients.length}}</span>
+                                    <span class="type">Clients</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="heading">Semaine</h4>
+                                    <canvas #salesChart id="salesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 l8">
+                            <div class="card">
+                                <div class="card-content">
+                                    <h4 class="heading">Commandes récentes</h4>
+                                        <h6 *ngIf="data.recentOrders === undefined || data.recentOrders === null || data.recentOrders.length <= 0" style="text-align: center;color: #999999;">Aucune commande</h6>
+                                        <table *ngIf="data.recentOrders !== undefined && data.recentOrders.length > 0" class="striped">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Utilisateur</th>
+                                                <th>Prix Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let order of data.recentOrders">
+                                                  <td><a>#{{ order.order_number}}</a></td>
+                                                  <td><a>{{ order.consumer.first_name }} {{ order.consumer.last_name }}</a></td>
+                                                  <td><a>{{ order.total_price| currency: 'EUR': true }}</a></td>
+                                              </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="weatherData !== undefined" class="col s12 l4">
+                            <div class="card weather-card">
+                                <div class="card-content">
+                                    <span class="card-title center">Météo</span>
+                                    <div class="row weather-icon-container">
+                                        <div class="col s5 ">
+                                            <i class="wi {{weather.icons[weatherData.icon]}} icon"></i>
+                                        </div>
+                                        <div class="col s7 weather-info">
+                                            <span class="weather">{{ weatherData.description }}</span>
+                                            <span class="sub-weather">{{ today | date: 'E' }} {{ today | date: 'MMM yyyy' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 weather-city flex align-center justify-space-between">
+                                            <div class="city-container">
+                                                <span class="city">{{weatherSaver.name}}</span>
+                                                <span class="country">France</span>
+                                            </div>
+                                            <div class="temperature-container">
+                                                <span class="temp">{{ weatherSaver.main.temp | number: '1.0-0' }}°C</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -35,6 +35,8 @@ import { CheckoutGuard } from './guards/checkout.guard';
 import { CheckoutCompleteComponent } from './checkout-complete/checkout-complete.component';
 import { CompleteGuard } from './guards/complete.guard';
 import { JWTInterceptor } from './interceptors/jwt.interceptor';
+import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
+import { OwnerGuard } from './guards/owner.guard';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { JWTInterceptor } from './interceptors/jwt.interceptor';
     PartnerComponent,
     PartnerApplicationComponent,
     CheckoutComponent,
-    CheckoutCompleteComponent
+    CheckoutCompleteComponent,
+    OwnerDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { JWTInterceptor } from './interceptors/jwt.interceptor';
     PartnerGuard,
     CheckoutGuard,
     CompleteGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
+    OwnerGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -46,6 +46,10 @@ export class AuthService {
    * This variable is used as a global variable to provide other components access.
    */
   user: User = null;
+  
+  /**
+   * This variable is used as a global variable to provide access to other components.
+   */
   cart: any;
   orderComplete: boolean = false;
 
@@ -53,17 +57,42 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private loader: LoaderService) {}
 
 
+  getOwnerChartData() {
+    return this.http.get(this.baseUrl + 'api/auth/owner/dashboard/data');
+  }
+
+  getOwnerData() {
+    return this.http.get(this.baseUrl + 'api/auth/owner/dashboard');
+  }
+
+  /**
+   * This function lets the user to make an order.
+   * It receives an Object payload with the necessary information and sends it to the back-end with, 
+   * an HTTP POST Request.
+   * 
+   * @param payload 
+   */
   buy(payload: any) {
     payload.cartId = this.cart.id;
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.baseUrl + 'api/auth/cart/checkout', JSON.stringify(payload), { headers: headers });
   }
 
+  /**
+   * This function lets the user edit an address from his profile.
+   * 
+   * @param address 
+   */
   editAddress(address: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(this.baseUrl + 'api/auth/address/edit', JSON.stringify(address), { headers: headers });
   }
 
+  /**
+   * This function lets the user delete an address from his profile.
+   * 
+   * @param address 
+   */
   deleteAddress(address: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('addressId', address.id);
@@ -74,16 +103,32 @@ export class AuthService {
     return this.http.delete(this.baseUrl+ 'api/auth/address/delete', options);
   }
 
+
+/**
+ * This function lets the user add an address to his profile.
+ * 
+ * @param address 
+ */
   addAddress(address: Address) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.baseUrl+ 'api/auth/address/add', JSON.stringify(address), { headers: headers });
   }
 
+  /**
+   * This function lets the user edit his profile information.
+   * 
+   * @param user 
+   */
   editUser(user: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(this.baseUrl+ 'api/auth/me/edit', JSON.stringify(user), { headers: headers });
   }
 
+  /**
+   * This function lets the user upload a new profile image.
+   * 
+   * @param image 
+   */
   uploadImage(image) {
     let data = new FormData();
     data.append('image', image, 'image');
@@ -91,11 +136,18 @@ export class AuthService {
   }
 
 
+  /**
+   * This function lets the user delete his profile image.
+   */
   deleteImage() {
     return this.http.delete(this.baseUrl+ 'api/auth/image/delete');
   }
 
-
+  /**
+   * This function is used to let the user change his password.
+   * 
+   * @param payload 
+   */
   changePassword(payload: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('currentPassword', payload.currentPassword).set('newPassword', payload.newPassword);
@@ -125,6 +177,12 @@ export class AuthService {
   }
   
 
+  /**
+   * This function is used to add an item to the user's cart.
+   * 
+   * @param item 
+   * @param quantity 
+   */
   addToCart(item: any, quantity: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('itemId', item.id).set('quantity', quantity);
@@ -139,7 +197,11 @@ export class AuthService {
     );
   }
 
-
+  /**
+   * This function is used to delete an item from the user's cart.
+   * 
+   * @param item 
+   */
   removeFromCart(item: any) {
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = {
@@ -158,7 +220,13 @@ export class AuthService {
     );
   }
 
-
+  /**
+   * This function is used to increase the quantity of an item in the user's cart by 1.
+   * It sends an HTTP PUT Request to the back-end and with the JWT, the back-end identifies the user and
+   * increases the quantity of the item by it's ID that is send in the Request body.
+   * 
+   * @param id 
+   */
   increaseCartQuantity(id) {
     let params = new HttpParams().set('itemId', id);
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -166,6 +234,13 @@ export class AuthService {
   }
 
 
+  /**
+   * This function is used to decrease quantity of an item in the user's cart by 1.
+   * It sends an HTTP PUT Request to the back-end and with the JWT, the back-end identifies the user and 
+   * decreases the item by the id that is sent in the Request body.
+   * 
+   * @param id 
+   */
   decreaseCartQuantity(id) {
     let params = new HttpParams().set('itemId', id);
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });

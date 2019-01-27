@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
                   }
                 }, 
                 err => {
-                  // console.log(err);
+                  this.loader.hideLoader();
                   M.toast({ html: err.error.message });
                 },
 

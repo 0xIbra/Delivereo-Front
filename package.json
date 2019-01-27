@@ -22,6 +22,7 @@
     "@auth0/angular-jwt": "^2.1.0",
     "@types/materialize-css": "^1.0.6",
     "animate.css": "^3.7.0",
+    "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "materialize-css": "^1.0.0",

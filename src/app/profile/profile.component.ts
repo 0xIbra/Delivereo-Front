@@ -75,6 +75,7 @@ export class ProfileComponent implements OnInit {
         this.auth.reloadUser();
       },
       err => {
+        this.loader.hideLoader();
         if (err.error.data.message !== undefined) {
           M.toast({ html: err.error.data.message });
         } else {
@@ -101,6 +102,7 @@ export class ProfileComponent implements OnInit {
         this.closeAddAddress();
       },
       err => {
+        this.loader.hideLoader();
         if (err.error.data.message !== undefined) {
           M.toast({ html: err.error.data.message });
         } else {
@@ -119,6 +121,7 @@ export class ProfileComponent implements OnInit {
         M.toast({ html: res.data.message });
       },
       err => {
+        this.loader.hideLoader();
         if (err.error.data.message !== undefined) {
           M.toast({ html: err.error.data.message });
         } else {
