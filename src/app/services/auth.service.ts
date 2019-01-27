@@ -55,17 +55,17 @@ export class AuthService {
 
   buy(payload: any) {
     payload.cartId = this.cart.id;
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.baseUrl + 'api/auth/cart/checkout', JSON.stringify(payload), { headers: headers });
   }
 
   editAddress(address: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.getToken()}` });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(this.baseUrl + 'api/auth/address/edit', JSON.stringify(address), { headers: headers });
   }
 
   deleteAddress(address: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('addressId', address.id);
     const options = {
       headers: headers,
@@ -75,31 +75,29 @@ export class AuthService {
   }
 
   addAddress(address: Address) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.baseUrl+ 'api/auth/address/add', JSON.stringify(address), { headers: headers });
   }
 
   editUser(user: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(this.baseUrl+ 'api/auth/me/edit', JSON.stringify(user), { headers: headers });
   }
 
   uploadImage(image) {
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer '+ this.getToken() });
     let data = new FormData();
     data.append('image', image, 'image');
-    return this.http.post(this.baseUrl+ 'api/auth/image/add', data, { headers: headers });
+    return this.http.post(this.baseUrl+ 'api/auth/image/add', data);
   }
 
 
   deleteImage() {
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer '+ this.getToken() });
-    return this.http.delete(this.baseUrl+ 'api/auth/image/delete', { headers: headers });
+    return this.http.delete(this.baseUrl+ 'api/auth/image/delete');
   }
 
 
   changePassword(payload: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('currentPassword', payload.currentPassword).set('newPassword', payload.newPassword);
     return this.http.put(this.baseUrl+ 'api/auth/password/change', params, { headers: headers });
   }
@@ -112,8 +110,7 @@ export class AuthService {
    */
   loadCart() {
     this.loader.showLoader();
-    let headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
-    this.http.get(this.cartEndpoint, { headers: headers }).subscribe(
+    this.http.get(this.cartEndpoint).subscribe(
       (res: any) => {
         this.cart = res.data;
       },
@@ -129,7 +126,7 @@ export class AuthService {
   
 
   addToCart(item: any, quantity: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let params = new HttpParams().set('itemId', item.id).set('quantity', quantity);
     this.http.post(this.baseUrl+ 'api/auth/cart/add', params, { headers: headers }).subscribe(
       data => {
@@ -144,7 +141,7 @@ export class AuthService {
 
 
   removeFromCart(item: any) {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     const options = {
       headers: headers,
       body: 'itemId='+ item.id
@@ -164,14 +161,14 @@ export class AuthService {
 
   increaseCartQuantity(id) {
     let params = new HttpParams().set('itemId', id);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     return this.http.put(this.baseUrl+ 'api/auth/cart/increase', params, { headers: headers });
   }
 
 
   decreaseCartQuantity(id) {
     let params = new HttpParams().set('itemId', id);
-    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer '+ this.getToken() });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     return this.http.put(this.baseUrl+ 'api/auth/cart/decrease', params, { headers: headers });
   }
 
@@ -228,7 +225,7 @@ export class AuthService {
       this.user = new User(user);
       this.loader.hideLoader();
     } else {
-      this.http.get(this.accountEndpoint, { headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+ this.getToken()}) })
+      this.http.get(this.accountEndpoint, { headers: new HttpHeaders({'Content-Type': 'application/json'}) })
                     .subscribe(
                       data => {
                         let res: any = data;

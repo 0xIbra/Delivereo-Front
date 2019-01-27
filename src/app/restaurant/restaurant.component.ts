@@ -41,8 +41,7 @@ export class RestaurantComponent implements OnInit, AfterContentInit {
     this.loader.showLoader();
     this.api.getRestaurantData(id)
           .subscribe(
-            data => {
-              let res: any = data;
+            (res: any) => {
               this.restaurant = res.data;
             },
             err => {

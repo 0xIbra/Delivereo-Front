@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -34,6 +34,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CheckoutGuard } from './guards/checkout.guard';
 import { CheckoutCompleteComponent } from './checkout-complete/checkout-complete.component';
 import { CompleteGuard } from './guards/complete.guard';
+import { JWTInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { CompleteGuard } from './guards/complete.guard';
     LoaderService,
     PartnerGuard,
     CheckoutGuard,
-    CompleteGuard
+    CompleteGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
