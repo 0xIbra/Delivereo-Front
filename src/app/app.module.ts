@@ -37,6 +37,8 @@ import { CompleteGuard } from './guards/complete.guard';
 import { JWTInterceptor } from './interceptors/jwt.interceptor';
 import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
 import { OwnerGuard } from './guards/owner.guard';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { OwnerOrdersComponent } from './owner-orders/owner-orders.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { OwnerGuard } from './guards/owner.guard';
     PartnerApplicationComponent,
     CheckoutComponent,
     CheckoutCompleteComponent,
-    OwnerDashboardComponent
+    OwnerDashboardComponent,
+    SidebarComponent,
+    OwnerOrdersComponent
   ],
   imports: [
     BrowserModule,

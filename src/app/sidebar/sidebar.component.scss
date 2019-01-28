@@ -1,0 +1,26 @@
+@import '../../assets/css/restaurant.css';
+@import '../../assets/css/profile.css';
+
+
+.sidebar-btn-container{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 600;
+    display: none;
+    align-items: center;
+  
+    a.sidebar-btn{
+      background: #333333;
+      padding: 10px 5px;
+      display: flex;
+      align-items: center;
+      border-radius: 0 5px 5px 0;
+      color: #FFFFFF;
+  
+      i.material-icons{
+        font-size: 18pt;
+      }
+    }
+  }

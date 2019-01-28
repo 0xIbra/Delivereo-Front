@@ -21,6 +21,7 @@ import { CheckoutCompleteComponent } from './checkout-complete/checkout-complete
 import { CompleteGuard } from './guards/complete.guard';
 import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.component';
 import { OwnerGuard } from './guards/owner.guard';
+import { OwnerOrdersComponent } from './owner-orders/owner-orders.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'partner/application', component: PartnerApplicationComponent, canActivate: [AuthGuard, PartnerGuard] },
   { path: 'cart/checkout', component: CheckoutComponent, canActivate: [AuthGuard, CheckoutGuard] },
   { path: 'cart/checkout/complete', component: CheckoutCompleteComponent, canActivate: [AuthGuard, CompleteGuard] },
-  { path: 'owner/dashboard', component: OwnerDashboardComponent, canActivate: [AuthGuard, OwnerGuard] }
+  { path: 'owner/dashboard', component: OwnerDashboardComponent, canActivate: [AuthGuard, OwnerGuard] },
+  { path: 'owner/orders', component: OwnerOrdersComponent, canActivate: [AuthGuard, OwnerGuard] }
 
 ];
 

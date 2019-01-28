@@ -1,0 +1,120 @@
+<div class="page-wrapper">
+  <div class="container-full">
+    <div class="row">
+      <div class="col s12 m4 l2 no-padding">
+        <app-sidebar></app-sidebar>                
+      </div>
+      <div class="col s12 m8 l10">
+        <div class="row">
+
+          <div class="col s12">
+            <div class="card">
+              <div style="position: relative;" class="card-content">
+                <div class="row">
+                  <div class="col s12 m6">
+                    <h4 style="text-align: left" class="heading">Commandes</h4>
+                  </div>
+                  <div class="col s12 m6 hide-on-small-and-down">
+                    <form (ngSubmit)="searchForm.form.valid && onSubmit()" #searchForm="ngForm">
+                      <div style="position: absolute;top: 5px;right: 20px;" class="input-field">
+                        <input type="text" (change)="onSubmit()" [(ngModel)]="search" name="search" class="modernize" placeholder="N°Commande">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Consommateur</th>
+                      <th>Commandée le</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="orders !== undefined">
+                    
+                    <tr *ngFor="let order of orders" style="cursor: pointer;" (click)="showOrder(order)">
+                      <td><a>#{{order.order_number}}</a></td>
+                      <td><a>{{order.consumer.first_name}} {{order.consumer.last_name}}</a></td>
+                      <td><a>{{order.ordered_at | date}}</a></td>
+                    </tr>
+
+                  </tbody>
+                </table>                
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+        <div class="modal modal-fixed-footer" id="orderModal">
+          <div  *ngIf="selectedOrder !== undefined" class="modal-content">
+            <h4 class="modal-title">#{{selectedOrder.order_number}}</h4>
+            <h6 style="text-align: left;color: #999999;">Paiement via {{ selectedOrder.payment_method.name }}  - Prix total: <b>{{ selectedOrder.total_price | currency: 'EUR': true }}</b></h6>
+            <div class="divider"></div>
+
+            <div class="row">
+              <div class="col s12">
+                <div class="flex align-center">
+                  <div class="row-header">Menus</div>
+                </div>
+                <div class="row">
+                  
+                    <div *ngFor="let item of selectedOrder.items" class="col s12 m6">
+                      <div class="card basic modernize">
+                        <a class="menu-card">
+                          <div class="card-content">
+                            <span class="card-title">{{item.menu.name}} X{{item.quantity}}</span>
+                            <p>{{item.menu.description}}</p>
+                            <span class="price status success">{{ item.menu.price | currency: 'EUR': true }}</span>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+
+              <div class="col s12 m6">
+                <div class="flex align-center">
+                  <div class="row-header">Consommateur</div>
+                </div>
+                <div class="card basic modernize">
+                    <a class="menu-card">
+                      <div class="card-content">
+                        <span class="card-title">{{selectedOrder.consumer.first_name}} {{selectedOrder.consumer.last_name}}</span>
+                        <p>{{selectedOrder.consumer.username}}</p>
+                        <p>Consommateur</p>
+                      </div>
+                    </a>
+                  </div>
+              </div>
+              
+              <div class="col s12 m6">
+                <div class="flex align-center">
+                  <div class="row-header">Adresse de livraison</div>
+                </div>
+
+                <div class="card basic modernize">
+                    <a class="menu-card">
+                      <div class="card-content">
+                        <span class="card-title">{{selectedOrder.delivery_address.name}}</span>
+                        <p>{{selectedOrder.delivery_address.line1}}</p>
+                        <p *ngIf="selectedOrder.delivery_address.line2 !== undefined">{{selectedOrder.delivery_address.line2}}</p>
+                        <span>{{selectedOrder.delivery_address.city.name}}, {{selectedOrder.delivery_address.city.zip_code}}</span>
+                      </div>
+                    </a>
+                  </div>
+              </div>
+
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <a class="waves-effect btn-flat red modal-close">Fermer</a>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>

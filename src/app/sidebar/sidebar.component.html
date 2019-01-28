@@ -1,0 +1,70 @@
+<div class="sidebar hide-on-med-and-down fixed">
+  <li class="sidebar-profile-link">
+      <a [routerLink]="['profile']" class="waves-effect">
+          <div class="image-container">
+            
+            <img *ngIf="auth.user.$image !== undefined" src="{{ auth.user.$image.url }}" alt="Photo de {{ auth.user.$first_name }}" width="40" height="40" class="circle">
+            
+            <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 1" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png" alt="Default photo" width="40" height="40" class="circle">
+            
+            <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 2" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png" alt="Default photo" width="40" height="40" class="circle">
+          
+          </div>
+          <div *ngIf="auth.user !== undefined" class="user-info">{{ auth.user.$first_name }} {{ auth.user.$last_name }}</div>
+      </a>
+  </li>
+
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/restaurant']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/restaurants']" class="waves-effect"><i class="material-icons">business</i>Restaurants</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/users']" class="waves-effect"><i class="material-icons">people</i>Utilisateurs</a></li>
+
+
+
+
+</div>
+
+
+<ul id="dashboardSidebar" class="sidenav sidebar">
+  <li>
+      <div class="user-view">
+          <div class="background">
+              <div class="background-overlay"></div>
+              <img src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540311324/businessman.jpg">
+          </div>
+            
+          <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 1" class="circle" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540289616/boss.png" alt="Default photo">
+            
+          <img *ngIf="auth.user.$image === undefined && auth.user.$gender.id === 2" class="circle" src="https://res.cloudinary.com/dqwg570oo/image/upload/v1540298272/croupier.png" alt="Default photo">
+            
+          <img *ngIf="auth.user.$image !== undefined" src="{{ auth.user.$image.url }}" alt="Photo de {{ auth.user.$first_name }}" class="circle">
+          
+          <a *ngIf="auth.user !== undefined" [routerLink]="['/profile']"><span class="white-text name">{{ auth.user.$first_name }} {{ auth.user.$last_name }}</span></a>
+          <a *ngIf="auth.user !== undefined" href="mailto:{{ auth.user.$email }}"><span class="white-text email">{{ auth.user.$email }}</span></a>
+      </div>
+  </li>
+
+  <li  *ngIf="auth.user !== null && auth.isOwner()"><a class="subheader">Partenaire</a></li>
+  <li  *ngIf="auth.user !== null && auth.isAdmin()"><a class="subheader">Admin</a></li>
+
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/restaurant']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/restaurants']" class="waves-effect"><i class="material-icons">business</i>Restaurants</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
+  <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/users']" class="waves-effect"><i class="material-icons">people</i>Utilisateurs</a></li>
+
+
+</ul>
+
+<div class="sidebar-btn-container">
+  <a href="#dashboardSidebar" class="sidebar-btn left sidenav-trigger">
+      <i class="material-icons">keyboard_arrow_right</i>
+  </a>
+</div>

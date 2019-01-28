@@ -68,8 +68,7 @@
 
               <div *ngFor="let menu of restaurant.menus" (click)="openModal(menu)" class="col s12 m6 cursor-pointer">
                 <div class="card basic modernize">
-                  <a class="menu-card" data-title="Kebab galette" data-description="Meilleur Kebab a Pau"
-                    data-price="5.5" data-id="1">
+                  <a class="menu-card">
                     <div class="card-content">
                       <span class="card-title">{{menu.name}}</span>
                       <p>{{menu.description}}</p>
