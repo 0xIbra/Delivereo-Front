@@ -16,7 +16,7 @@
 
   <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
   <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
-  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/restaurant']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/manage']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
 
   <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
   <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/restaurants']" class="waves-effect"><i class="material-icons">business</i>Restaurants</a></li>
@@ -53,7 +53,7 @@
 
   <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
   <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/orders']" class="waves-effect"><i class="material-icons">dashboard</i>Commandes</a></li>
-  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/restaurant']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
+  <li *ngIf="auth.user !== null && auth.isOwner()"><a [routerLink]="['/owner/manage']" class="waves-effect"><i class="material-icons">business</i>Mon Restaurant</a></li>
 
   <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/dashboard']" class="waves-effect"><i class="material-icons">show_chart</i>Tableau de bord</a></li>
   <li *ngIf="auth.user !== null && auth.isAdmin()"><a [routerLink]="['/admin/restaurants']" class="waves-effect"><i class="material-icons">business</i>Restaurants</a></li>

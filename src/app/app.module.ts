@@ -39,6 +39,7 @@ import { OwnerDashboardComponent } from './owner-dashboard/owner-dashboard.compo
 import { OwnerGuard } from './guards/owner.guard';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { OwnerOrdersComponent } from './owner-orders/owner-orders.component';
+import { ManageRestaurantComponent } from './manage-restaurant/manage-restaurant.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { OwnerOrdersComponent } from './owner-orders/owner-orders.component';
     CheckoutCompleteComponent,
     OwnerDashboardComponent,
     SidebarComponent,
-    OwnerOrdersComponent
+    OwnerOrdersComponent,
+    ManageRestaurantComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +84,7 @@ import { OwnerOrdersComponent } from './owner-orders/owner-orders.component';
     CheckoutGuard,
     CompleteGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
-    OwnerGuard
+    OwnerGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,142 @@
+@import '../../assets/css/restaurant.css';
+@import '../../assets/css/profile.css';
+
+$stripe: #6772E5;
+
+/**
+================================================
+================ STRIPE CARD ===================
+================================================
+ */
+
+ .card.stripe-card{
+    background-color: $stripe !important;
+    color: #eee;
+    //box-shadow: 1px 1px 15px 1px rgba(0,0,0,0.3);
+  
+    .card-content{
+      position: relative;
+      .card-title{
+        font-size: 13pt !important;
+      }
+  
+      p{
+        font-size: 10pt !important;
+      }
+  
+      .logo{
+        position: absolute;
+        right: 5px;
+        bottom: 0px;
+  
+        img{
+          width: 40px;
+        }
+      }
+    }
+  }
+  
+  /**
+  ================================================
+  ================ STRIPE CARD ===================
+  ================================================
+   */
+
+
+
+   /**
+  ================================================
+  =============== CATEGORY CARD ==================
+  ================================================
+   */
+
+   .card.category.modernize {
+       position: relative;
+       width: 100%;
+    //    height: 70px;
+       background-position: center center;
+       color: #eee !important;
+       z-index: 300;
+       overflow: hidden !important;
+       border: 0 !important;
+
+       img.category-card-background {
+           width: 100%;
+       }
+
+       .overlay {
+           position: absolute;
+           width: 100%;
+           height: 100%;
+           background: rgba(0,0,0,0.78);
+           z-index: 310;
+           top: 0;
+           left: 0;
+       }
+
+        &:hover {
+            
+            .card-content{
+
+                span.card-title{
+                    display: none;
+                }
+        
+                .delete-hover-btn {
+                    opacity: 1 !important;
+                }
+
+                .add-hover-btn {
+                    opacity: 1 !important;
+                }
+
+            }
+
+        }
+
+        
+
+       .card-content{
+           position: relative;
+           z-index: 320;
+           height: 50px;
+
+           .delete-hover-btn {
+               opacity: 0;
+               background: #d9534f;
+               color: #eee;
+               transition: ease-in .2s;
+               position: absolute;
+               width: 100%;
+               height: 50px;
+               align-items: center;
+               cursor: pointer !important;
+           }
+
+           .add-hover-btn {
+                opacity: 0;
+                background: #5cb85c;
+                color: #eee;
+                transition: ease-in .2s;
+                position: absolute;
+                width: 100%;
+                height: 50px;
+                align-items: center;
+                cursor: pointer !important;
+
+                &.active {
+                    opacity: 1 !important;
+                }
+           }
+       }
+   }
+
+
+   /**
+  ================================================
+  =============== CATEGORY CARD ==================
+  ================================================
+   */
+
+
+

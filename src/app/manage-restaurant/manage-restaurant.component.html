@@ -1,0 +1,166 @@
+<div *ngIf="owner.restaurant !== undefined" class="page-wrapper">
+  <div class="container-full">
+    <div class="row">
+      <div class="col s12 l2 no-padding">
+        <app-sidebar></app-sidebar>        
+      </div>
+      <div class="col s12 l10">
+        <div class="row">
+
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h4 class="modal-title">
+                    <div class="flex align-center">
+                      <span>{{owner.restaurant.name}}</span>
+                      
+                      <h6 style="text-align: left;color: #999999;">
+                        <div class="flex align-center">
+                          <i class="material-icons">location_on</i>
+                          <span>{{owner.restaurant.city.name}}, {{owner.restaurant.city.zip_code}}</span>
+                        </div>
+                      </h6>
+                    </div>
+                </h4>
+
+                <div class="divider"></div>
+                <br>
+
+                <div class="row">
+
+                  <div class="col s12">
+                    <div class="flex align-center">
+                      <div class="row-header">Vos categories</div>
+                      <a (click)="openCategoriesModal()" class="flex align-center add-btn cursor-pointer">
+                        <span class="material-icons">add</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="col s12">
+                    <div class="row">
+
+                      <div *ngFor="let category of owner.restaurant.categories" class="col s6 m3 l2">
+                        <div (click)="removeCategory(category)" class="card basic category modernize" [ngStyle]="{ 'background-image': 'url(' + category.image.url + ')' }">
+                          <div class="overlay"></div>
+                          <a class="menu-card">
+                            <div class="card-content flex justify-center align-center">
+                              <span class="card-title">{{category.name}}</span>
+                              <div class="delete-hover-btn flex justify-center">
+                                <i class="material-icons">close</i>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <br>
+
+                  <div class="col s12">
+                    <div class="flex align-center">
+                      <div class="row-header">Menus</div>
+                      <a class="flex align-center add-btn">
+                        <span class="material-icons">add</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="col s12">
+                    <div class="row">
+
+                      <div *ngFor="let menu of owner.restaurant.menus" class="col s12 m6 l3">
+                          <div class="card basic modernize">
+                            <a class="menu-card">
+                              <div class="card-content">
+                                <span class="card-title">{{menu.name}}</span>
+                                <p>{{menu.description}}</p>
+                                <span class="price status success">{{ menu.price | currency: 'EUR': true }}</span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col s12">
+                    <div class="flex align-center">
+                      <div class="row-header">Moyens de paiement</div>
+                    </div>
+                    <div class="row">
+                      
+                        <div class="col s12 m6 l4">
+                            <div class="card stripe-card">
+                                <a>
+                                    <div class="card-content">
+                                        <span class="card-title">Paiement en espèces</span>
+                                        <p>Paiement a la livraison</p>
+                                        <div class="logo">
+                                            <i class="material-icons">euro_symbol</i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                      
+                      <div class="col s12 m6 l4">
+                          <div class="card stripe-card">
+                              <a>
+                                  <div class="card-content">
+                                      <span class="card-title">KEBAB ISTANBUL - DELIV</span>
+                                      <p>ID : acct_1DbAU6F2DQIkRNSL</p>
+
+                                      <div class="logo">
+                                          <img src="../../assets/img/stripe_logo.png" alt="Stripe Logo">
+                                      </div>
+                                  </div>
+                              </a>
+                          </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal modal-fixed-footer" id="categoriesModal">
+            <div class="modal-content">
+              <h4>Categories</h4>
+              <br>
+              <div class="divider"></div>
+              <div *ngIf="categories !== undefined" class="row">
+                
+                <div *ngFor="let category of categories" class="col s6 m4">
+                    <div (click)="checkCategorie(category)" class="card basic category modernize" [ngStyle]="{ 'background-image': 'url(' + category.image.url + ')' }">
+                      <div class="overlay"></div>
+                      <a class="menu-card">
+                        <div class="card-content flex justify-center align-center">
+                          <span class="card-title">{{category.name}}</span>
+                          <div [class.active]="contains(category)" class="add-hover-btn flex justify-center">
+                            <i *ngIf="!contains(category)" class="material-icons">add</i>
+                            <i *ngIf="contains(category)" class="material-icons">check</i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+            <a (click)="onCategoriesAdd()" class="waves-effect btn-flat green modal-close">Ajouter</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

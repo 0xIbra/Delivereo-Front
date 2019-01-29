@@ -79,7 +79,7 @@ export class OwnerOrdersComponent implements OnInit, AfterViewInit {
   initModal() {
     let elem = document.getElementById('orderModal');
     let modal = M.Modal.init(elem);
-    modal.open();
+    // modal.open();
   }
 
 }
