@@ -62,7 +62,7 @@
                   <div class="col s12">
                     <div class="flex align-center">
                       <div class="row-header">Menus</div>
-                      <a class="flex align-center add-btn">
+                      <a (click)="openMenuModal()" class="flex align-center add-btn cursor-pointer">
                         <span class="material-icons">add</span>
                       </a>
                     </div>
@@ -72,7 +72,7 @@
                     <div class="row">
 
                       <div *ngFor="let menu of owner.restaurant.menus" class="col s12 m6 l3">
-                          <div class="card basic modernize">
+                          <div (click)="openMenuModal(menu)" class="card basic modernize cursor-pointer">
                             <a class="menu-card">
                               <div class="card-content">
                                 <span class="card-title">{{menu.name}}</span>
@@ -108,16 +108,31 @@
                       
                       <div class="col s12 m6 l4">
                           <div class="card stripe-card">
-                              <a>
+                              <a *ngIf="owner.restaurant.stripe_client === undefined" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_E2NBCTLbP2MN2hCR0RBHuZymch6LCH81&scope=read_write" target="_blank">
                                   <div class="card-content">
-                                      <span class="card-title">KEBAB ISTANBUL - DELIV</span>
-                                      <p>ID : acct_1DbAU6F2DQIkRNSL</p>
+                                      <span *ngIf="owner.restaurant.stripe_client !== undefined" class="card-title">{{owner.restaurant.name}}</span>
+                                      <p *ngIf="owner.restaurant.stripe_client !== undefined">ID : {{owner.restaurant.stripe_client.account_id}}</p>
+
+                                      <span *ngIf="owner.restaurant.stripe_client === undefined" class="card-title">Veuillez créer et connecter votre compte Stripe.</span>
+                                      <p *ngIf="owner.restaurant.stripe_client === undefined">Cliquez ici pour procéder</p>
 
                                       <div class="logo">
                                           <img src="../../assets/img/stripe_logo.png" alt="Stripe Logo">
                                       </div>
                                   </div>
                               </a>
+                              
+                              <div class="card-content">
+                                  <span *ngIf="owner.restaurant.stripe_client !== undefined" class="card-title">{{owner.restaurant.name}}</span>
+                                  <p *ngIf="owner.restaurant.stripe_client !== undefined">ID : {{owner.restaurant.stripe_client.account_id}}</p>
+
+                                  <span *ngIf="owner.restaurant.stripe_client === undefined" class="card-title">Veuillez créer et connecter votre compte Stripe.</span>
+                                  <p *ngIf="owner.restaurant.stripe_client === undefined">Cliquez ici pour procéder</p>
+
+                                  <div class="logo">
+                                      <img src="../../assets/img/stripe_logo.png" alt="Stripe Logo">
+                                  </div>
+                              </div>
                           </div>
                       </div>
 
@@ -137,7 +152,8 @@
               <div class="divider"></div>
               <div *ngIf="categories !== undefined" class="row">
                 
-                <div *ngFor="let category of categories" class="col s6 m4">
+                <div *ngFor="let category of categories">
+                  <div *ngIf="!alreadyAdded(category)" class="col s6 m4">
                     <div (click)="checkCategorie(category)" class="card basic category modernize" [ngStyle]="{ 'background-image': 'url(' + category.image.url + ')' }">
                       <div class="overlay"></div>
                       <a class="menu-card">
@@ -151,11 +167,51 @@
                       </a>
                     </div>
                   </div>
+                </div>
 
               </div>
             </div>
             <div class="modal-footer">
             <a (click)="onCategoriesAdd()" class="waves-effect btn-flat green modal-close">Ajouter</a>
+            </div>
+          </div>
+
+          <div class="modal modal-fixed-footer" id="menuModal">
+            <div class="modal-content">
+              <h4 *ngIf="selectedMenu.name === '' || selectedMenu.name === undefined">Menu</h4>
+              <h4 *ngIf="selectedMenu.name !== '' || selectedMenu.name !== undefined">{{selectedMenu.name}}</h4>
+              <br>
+              <div class="divider"></div>
+
+              <form (ngSubmit)="menuForm.form.valid && menuSubmit()" #menuForm="ngForm">
+                
+                <div class="input-field">
+                  <input type="text" name="name" [(ngModel)]="selectedMenu.name" #menuName="ngModel" required class="modernize" placeholder="Nom du menu">
+                  <div class="alert danger" *ngIf="menuName.errors?.required && menuName.touched">Veuillez taper un nom pour votre menu.</div>
+                </div>
+
+                <div class="input-field">
+                  <textarea name="menuDescription" [(ngModel)]="selectedMenu.description" #description="ngModel" class="modernize" cols="25" rows="20"></textarea>
+                </div>
+
+                <div class="input-field modernize">
+                  <select name="menuCategory" #menuCategory="ngModel" required [(ngModel)]="selectedMenu.category" class="modernize">
+                    <option value="" disabled selected>Choisissez une categorie</option>
+                    <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+                  </select>
+                  <div class="alert danger" *ngIf="menuCategory.errors?.required && (menuCategory.touched || menuForm.submitted)">Veuillez choisir une categorie.</div>
+                </div>
+
+                <div class="input-field">
+                  <input type="number" name="menuPrice" [(ngModel)]="selectedMenu.price" #menuPrice="ngModel" required class="modernize">
+                  <div class="alert danger" *ngIf="menuPrice.errors?.required && menuPrice.touched">Veuillez entrer un prix pour votre menu.</div>
+                </div>
+
+                <div class="input-field submit-wrapper">
+                  <input type="submit" value="Valider" class="modernize btn modal-close">
+                </div>
+
+              </form>
             </div>
           </div>
 

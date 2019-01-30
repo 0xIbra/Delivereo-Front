@@ -1,7 +1,25 @@
+@import '../../assets/css/register.css';
 @import '../../assets/css/restaurant.css';
 @import '../../assets/css/profile.css';
 
 $stripe: #6772E5;
+
+
+
+
+input[type="number"].modernize {
+    height: 40px;
+    font-family: 'Roboto', Helvetica, sans-serif !important;
+    background: #eeeeee !important;
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 3px 0 0 3px !important; }
+    input[type="text"].modernize::placeholder {
+      color: #999999 !important; }
+
+
+
+
 
 /**
 ================================================

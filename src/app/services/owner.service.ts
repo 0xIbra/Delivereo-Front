@@ -13,6 +13,10 @@ export class OwnerService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  createOrUpdateMenu(menu: any) {
+    return this.http.post(`${this.baseUrl}api/auth/owner/restaurant/menu`, JSON.stringify(menu), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
   loadRestaurant() {
     if (this.auth.isOwner()) {
       this.restaurant = this.auth.user.$restaurant;
@@ -23,6 +27,7 @@ export class OwnerService {
     return this.http.get(`${this.baseUrl}api/auth/owner/restaurant`).subscribe(
       (res: any) => {
         this.restaurant = res.data;
+        console.log(res.data);
       },
       err => {
         console.log(err);
@@ -46,6 +51,16 @@ export class OwnerService {
 
   getOrders() {
     return this.http.get(`${this.baseUrl}api/auth/owner/orders`);
+  }
+
+  hasCategory(testCategory: any) {
+    let test: boolean = false;
+    this.restaurant.categories.forEach(category => {
+      if (category.id === testCategory.id) {
+        test = true;
+      }
+    });
+    return test;
   }
 
 }
