@@ -2,6 +2,7 @@ import { Injectable,  } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { Restaurant } from '../models/restaurant';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,13 @@ export class OwnerService {
 
   public restaurant: any;
 
+  applicationComplete: boolean = false;
+
   constructor(private http: HttpClient, private auth: AuthService) { }
+
+  partnerApplication(restaurant: Restaurant) {
+    return this.http.post(`${this.baseUrl}api/auth/partner/application`, JSON.stringify(restaurant), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
 
   createOrUpdateMenu(menu: any) {
     return this.http.post(`${this.baseUrl}api/auth/owner/restaurant/menu`, JSON.stringify(menu), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 import { Gender } from '../models/gender';
 import { LoaderService } from '../services/loader.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { LoaderService } from '../services/loader.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
   user: User;
 
   plainPasswordFirst: string;
@@ -19,14 +20,22 @@ export class RegisterComponent implements OnInit {
   genders: Gender[] = [new Gender({ id: 1, name: 'Homme' }), new Gender({ id: 2, name: 'Femme' })];
   
 
-  constructor(private auth: AuthService, private loader: LoaderService) { }
+  constructor(private auth: AuthService, private loader: LoaderService, private router: Router) { }
 
   ngOnInit() {
     this.user = new User({});
   }
 
+  ngAfterViewInit() {
+    this.loader.showLoader('Initialisation');
+    setTimeout(() => {
+      this.loader.hideLoader();
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }, 1000);
+  }
+
   onSubmit(){
-    if (this.plainPasswordFirst === this.plainPasswordSecond){
+    if (this.plainPasswordFirst === this.plainPasswordSecond) {
       this.user.$password = this.plainPasswordFirst;
       this.loader.showLoader('Inscription...');
       this.auth.register(this.user).subscribe(
@@ -42,6 +51,7 @@ export class RegisterComponent implements OnInit {
 
         () => {
           this.loader.hideLoader();
+          this.router.navigate(['/login']);
         }
       );
 

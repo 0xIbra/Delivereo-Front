@@ -11,9 +11,9 @@ export class Restaurant {
     private id: number;
     private name: string;
     private number: string;
-    private opens_at: Time;
-    private closes_at: Time;
-    private enabled: boolean;
+    private opens_at: any;
+    private closes_at: any;
+    public enabled: boolean;
     private published: boolean;
     private created_at: Date;
     private categories: Array<Category>;
@@ -27,67 +27,71 @@ export class Restaurant {
     private menus: Array<Menu>;
 
 
-    constructor(restaurant: any) {
-        // Array initialization
-        this.categories = new Array<Category>();
-        this.likes = new Array<Like>();
-        this.dislikes = new Array<DisLike>();
-        this.menus = new Array<Menu>();
+    constructor(restaurant: any = null) {
+        if (restaurant !== null) {
+            this.categories = new Array<Category>();
+            this.likes = new Array<Like>();
+            this.dislikes = new Array<DisLike>();
+            this.menus = new Array<Menu>();
 
-        this.id = restaurant.id;
-        this.name = restaurant.name;
-        if (restaurant.number !== undefined) {
-            this.number = restaurant.number;
-        }
+            this.id = restaurant.id;
+            this.name = restaurant.name;
+            if (restaurant.number !== undefined) {
+                this.number = restaurant.number;
+            }
 
-        this.opens_at = restaurant.opens_at;
-        this.closes_at = restaurant.closes_at;
+            this.opens_at = restaurant.opens_at;
+            this.closes_at = restaurant.closes_at;
 
-        if (restaurant.enabled !== undefined) {
-            this.enabled = restaurant.enabled;
-        }
-        if (restaurant.published !== undefined) {
-            this.published = restaurant.published;
-        }
-        if (restaurant.created_at !== undefined) {
-            this.created_at = restaurant.created_at;
-        }
+            if (restaurant.enabled !== undefined) {
+                this.enabled = restaurant.enabled;
+            }
+            if (restaurant.published !== undefined) {
+                this.published = restaurant.published;
+            }
+            if (restaurant.created_at !== undefined) {
+                this.created_at = restaurant.created_at;
+            }
 
-        if (restaurant.categories !== undefined && restaurant.categories.length > 0) {
-            restaurant.categories.forEach(category => {
-                this.categories.push(new Category(category));
-            });
-        }
-        
-        if (restaurant.image !== undefined) {
-            this.image = new Image(restaurant.image);
-        }
+            if (restaurant.categories !== undefined && restaurant.categories.length > 0) {
+                restaurant.categories.forEach(category => {
+                    this.categories.push(new Category(category));
+                });
+            }
+            
+            if (restaurant.image !== undefined) {
+                this.image = new Image(restaurant.image);
+            }
 
-        if (restaurant.likes !== undefined && restaurant.likes.length > 0) {
-            restaurant.likes.forEach(like => {
-                this.likes.push(new Like(like));
-            });
-        }
+            if (restaurant.likes !== undefined && restaurant.likes.length > 0) {
+                restaurant.likes.forEach(like => {
+                    this.likes.push(new Like(like));
+                });
+            }
 
 
-        if (restaurant.dislikes !== undefined && restaurant.dislikes.length > 0) {
-            restaurant.dislikes.forEach(dislike => {
-                this.dislikes.push(new DisLike(dislike));
-            });
-        }
+            if (restaurant.dislikes !== undefined && restaurant.dislikes.length > 0) {
+                restaurant.dislikes.forEach(dislike => {
+                    this.dislikes.push(new DisLike(dislike));
+                });
+            }
 
-        if (restaurant.city !== undefined) {
-            this.city = new City(restaurant.city);
-        }
+            if (restaurant.city !== undefined) {
+                this.city = new City(restaurant.city);
+            }
 
-        if (restaurant.address !== undefined) {
-            this.address = new Address(restaurant.address);
-        }
+            if (restaurant.address !== undefined) {
+                this.address = new Address(restaurant.address);
+            }
 
-        if (restaurant.menus !== undefined && restaurant.menus.length > 0) {
-            restaurant.menus.forEach(menu => {
-                this.menus.push(new Menu(menu));
-            });
+            if (restaurant.menus !== undefined && restaurant.menus.length > 0) {
+                restaurant.menus.forEach(menu => {
+                    this.menus.push(new Menu(menu));
+                });
+            }
+        } else {
+            this.categories = []
+            this.address = new Address();
         }
     }
     
@@ -95,6 +99,7 @@ export class Restaurant {
     public addCategory(value: Category) {
         this.categories.push(value);
     }
+
 
 
 
@@ -124,17 +129,17 @@ export class Restaurant {
 
     /**
      * Getter $opens_at
-     * @return {Time}
+     * @return {any}
      */
-	public get $opens_at(): Time {
+	public get $opens_at(): any {
 		return this.opens_at;
 	}
 
     /**
      * Getter $closes_at
-     * @return {Time}
+     * @return {any}
      */
-	public get $closes_at(): Time {
+	public get $closes_at(): any {
 		return this.closes_at;
 	}
 
@@ -244,17 +249,17 @@ export class Restaurant {
 
     /**
      * Setter $opens_at
-     * @param {Time} value
+     * @param {any} value
      */
-	public set $opens_at(value: Time) {
+	public set $opens_at(value: any) {
 		this.opens_at = value;
 	}
 
     /**
      * Setter $closes_at
-     * @param {Time} value
+     * @param {any} value
      */
-	public set $closes_at(value: Time) {
+	public set $closes_at(value: any) {
 		this.closes_at = value;
 	}
 
@@ -337,6 +342,8 @@ export class Restaurant {
 	public set $menus(value: Array<Menu>) {
 		this.menus = value;
 	}
+
+
    
 
 }

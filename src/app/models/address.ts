@@ -8,19 +8,23 @@ export class Address {
     private city: City;
 
 
-    constructor(address: any) {
-        if (address.id !== undefined) {
-            this.id = address.id;
+    constructor(address: any = null) {
+        if (address !== null) {
+            if (address.id !== undefined) {
+                this.id = address.id;
+            }
+            this.name = address.name;
+            this.line1 = address.line1;
+            if (address.line2 !== undefined) {
+                this.line2 = address.line2;
+            }
+            if (address.city !== undefined) {
+                this.city = new City(address.city);
+            }
+            this.city = new City();
+        } else {
+            this.city = new City();
         }
-        this.name = address.name;
-        this.line1 = address.line1;
-        if (address.line2 !== undefined) {
-            this.line2 = address.line2;
-        }
-        if (address.city !== undefined) {
-            this.city = new City(address.city);
-        }
-        this.city = new City({});
     }
 
 

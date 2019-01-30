@@ -5,13 +5,15 @@ export class Category {
     private name: string;
     private image: Image;
     
-    constructor(category: any) {
-        if (category.id !== undefined) {
-            this.id = category.id;
-        }
-        this.name = category.name;
-        if (category.image !== undefined) {
-            this.image = new Image(category.image);
+    constructor(category: any = null) {
+        if (category !== null) {
+            if (category.id !== undefined) {
+                this.id = category.id;
+            }
+            this.name = category.name;
+            if (category.image !== undefined) {
+                this.image = new Image(category.image);
+            }
         }
     }
 

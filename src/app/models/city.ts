@@ -4,12 +4,14 @@ export class City {
     private zip_code: Number;
 
 
-    constructor(city: any) {
-        if (city.id !== undefined) {
-            this.id = city.id;
+    constructor(city: any = null) {
+        if (city !== null) {
+            if (city.id !== undefined) {
+                this.id = city.id;
+            }
+            this.name = city.name;
+            this.zip_code = city.zip_code;
         }
-        this.name = city.name;
-        this.zip_code = city.zip_code;
     }
 
 

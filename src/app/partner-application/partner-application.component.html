@@ -6,38 +6,47 @@
           <h3 class="heading">Ouverture restaurant</h3>
           <form (ngSubmit)="form.form.valid && onSubmit()" #form="ngForm">
             <div class="input-field">
-              <input type="text" #name="ngModel" [(ngModel)]="restaurant.$name" name="name" class="modernize" placeholder="Nom du restaurant">
+              <input type="text" #name="ngModel" [(ngModel)]="restaurant.$name" required name="name" class="modernize" placeholder="Nom du restaurant">
+              <div class="alert danger" *ngIf="name.errors?.required && (name.touched || name.dirty)">Veuillez entrer le nom du restaurant</div>
             </div>
             <div class="input-field">
-              <input type="text" #number="ngModel" [(ngModel)]="restaurant.$number" name="number" class="modernize" placeholder="Numéro de téléphone">
+              <input type="text" #number="ngModel" [(ngModel)]="restaurant.$number" required name="number" class="modernize" placeholder="Numéro de téléphone">
+              <div class="alert danger" *ngIf="number.errors?.required && (number.touched || number.dirty)">Veuillez entrer le numéro de téléphone du restaurant</div>
             </div>
             <div class="input-field modernize">
-              <input type="text" #opensAt="ngModel" disabled [(ngModel)]="restaurant.$opens_at" name="opens_at" class="timepicker modernize" placeholder="Ouverture">
+              <input type="text" #opensAt="ngModel" [(ngModel)]="restaurant.$opens_at" name="opensAt" id="opens_at" class="timepicker opentime modernize cursor-pointer" placeholder="Ouverture">
+              <!-- <div class="alert danger" *ngIf="opensAt.errors?.required && (opensAt.touched)">Veuillez choisir l'heure d'ouverture du restaurant.</div> -->
             </div>
             <div class="input-field modernize">
-              <input type="text" #closesAt="ngModel" disabled [(ngModel)]="restaurant.$closes_at" name="closes_at" class="timepicker modernize">
+              <input type="text" #closesAt="ngModel" [(ngModel)]="restaurant.$closes_at" name="closesAt" id="closes_at" class="timepicker closetime modernize cursor-pointer" placeholder="Fermeture">
+              <!-- <div class="alert danger" *ngIf="closesAt.errors?.required && (closesAt.touched)">Veuillez choisir l'heure de la fermeture du restaurant</div> -->
             </div>
             <div class="input-field modernize">
-              <select (change)="log()" name="category" multiple #category="ngModel" [(ngModel)]="selectedCategories">
-                <option value="0" disabled selected>Choisissez vos categories</option>
+              <select (change)="log()" name="category" multiple #category="ngModel" [(ngModel)]="selectedCategories" class="categories">
+                <option value="" disabled selected>Choisissez vos categories</option>
                 <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
               </select>
-              <!-- {{ form_widget(form.categories) }} -->
             </div>
             <div class="input-field">
-              <!-- {{ form_widget(form.address.line1) }} -->
+              <input type="text" name="line1" [(ngModel)]="restaurant.$address.$line1" #line1="ngModel" required class="modernize" placeholder="Adresse">
+              <div class="alert danger" *ngIf="line1.errors?.required && (line1.touched || line1.dirty)">Veuillez entrer une adresse</div>
             </div>
             <div class="input-field">
+              <input type="text" name="line2" [(ngModel)]="restaurant.$address.$line2" #line2="ngModel" class="modernize" placeholder="Complementaire">
               <!-- {{ form_widget(form.address.line2) }} -->
             </div>
             <div class="input-field">
+              <input type="text" name="city" [(ngModel)]="restaurant.$address.$city.$name" required #city="ngModel" class="modernize" placeholder="Ville">
+              <div class="alert danger" *ngIf="city.errors?.required && (city.touched || city.dirty)">Veuillez entrer une ville</div>
               <!-- {{ form_widget(form.address.city) }} -->
             </div>
             <div class="input-field">
+              <input type="text" name="zipCode" [(ngModel)]="restaurant.$address.$city.$zip_code" required #zip="ngModel" class="modernize" placeholder="Code postal">
+              <div class="alert danger" *ngIf="zip.errors?.required && (zip.touched || zip.dirty)">Veuillez entrer le code postal.</div>
               <!-- {{ form_widget(form.address.zipCode) }} -->
             </div>
             <div class="input-field submit-wrapper">
-              <input type="submit" value="valider" class="btn modernize">
+              <input type="submit" value="Ouvrir" class="btn modernize">
             </div>
           </form>
         </div>
