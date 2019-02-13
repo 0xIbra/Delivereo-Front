@@ -1,4 +1,5 @@
 # Delivereo
+Delivereo-Front is a web client for Delivereo projects, developed JS with Angular 7 Framework.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
 
